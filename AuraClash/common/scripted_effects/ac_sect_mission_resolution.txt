@@ -1,0 +1,18 @@
+﻿ac_sect_resolve_mission_effect = {
+	if = {
+		limit = {
+			ac_sect_member_trigger = yes
+			has_variable = ac_sect_mission
+			var:ac_sect_mission = { NOT = { has_variable = ac_resolved } }
+		}
+		var:ac_sect_mission = { set_variable = { name = ac_resolved value = 1 } }
+		if = {
+			limit = { ac_sect_available_trigger = yes }
+			random_list = {
+				0 = { modifier = { add = ac_sect_final_mission_chance } ac_sect_mission_success_effect = yes }
+				0 = { modifier = { add = ac_sect_final_mission_failure } ac_sect_mission_failure_effect = yes }
+			}
+		}
+		else = { ac_sect_mission_failure_effect = yes }
+	}
+}

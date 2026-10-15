@@ -1,0 +1,119 @@
+﻿ac_sect_native_estate_info = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes has_variable = ac_sect_estate_open }
+	effect = { remove_variable = ac_sect_estate_open remove_variable = ac_sect_estate_selected }
+}
+ac_sect_estate_cancel = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = { ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_domicile = { has_ongoing_domicile_construction = yes } }
+	effect = { hidden_effect = { var:ac_sect.var:ac_estate_domicile = { ac_sect_cancel_native_construction_effect = yes } } }
+}
+ac_sect_estate_close_panel = { scope = character is_shown = { ac_sect_member_trigger = yes } effect = { remove_variable = ac_sect_estate_selected } }
+ac_sect_estate_select_cultivation_hall = { scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { set_variable = { name = ac_sect_estate_selected value = flag:cultivation_hall } }
+}
+ac_sect_estate_select_cultivation_hall_panel = { scope = character is_shown = { ac_sect_member_trigger = yes var:ac_sect_estate_selected ?= flag:cultivation_hall } }
+ac_sect_estate_commission_cultivation_hall = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = {
+		ac_sect_master_trigger = yes
+		var:ac_sect = { NOT = { has_variable = ac_building } var:ac_cultivation_hall < 3 }
+		var:ac_sect.var:ac_treasury >= ac_sect_cultivation_hall_cost
+		var:ac_sect.var:ac_estate_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+	}
+	effect = { ac_sect_build_cultivation_hall_effect = yes }
+}
+ac_sect_estate_pending_cultivation_hall = { scope = character
+	is_shown = { var:ac_sect = { has_variable = ac_native_construction var:ac_building ?= flag:cultivation_hall } }
+}
+ac_sect_estate_select_alchemy_pavilion = { scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { set_variable = { name = ac_sect_estate_selected value = flag:alchemy_pavilion } }
+}
+ac_sect_estate_select_alchemy_pavilion_panel = { scope = character is_shown = { ac_sect_member_trigger = yes var:ac_sect_estate_selected ?= flag:alchemy_pavilion } }
+ac_sect_estate_commission_alchemy_pavilion = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = {
+		ac_sect_master_trigger = yes
+		var:ac_sect = { NOT = { has_variable = ac_building } var:ac_alchemy_pavilion < 3 }
+		var:ac_sect.var:ac_treasury >= ac_sect_alchemy_pavilion_cost
+		var:ac_sect.var:ac_estate_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+	}
+	effect = { ac_sect_build_alchemy_pavilion_effect = yes }
+}
+ac_sect_estate_pending_alchemy_pavilion = { scope = character
+	is_shown = { var:ac_sect = { has_variable = ac_native_construction var:ac_building ?= flag:alchemy_pavilion } }
+}
+ac_sect_estate_select_training_ground = { scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { set_variable = { name = ac_sect_estate_selected value = flag:training_ground } }
+}
+ac_sect_estate_select_training_ground_panel = { scope = character is_shown = { ac_sect_member_trigger = yes var:ac_sect_estate_selected ?= flag:training_ground } }
+ac_sect_estate_commission_training_ground = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = {
+		ac_sect_master_trigger = yes
+		var:ac_sect = { NOT = { has_variable = ac_building } var:ac_training_ground < 3 }
+		var:ac_sect.var:ac_treasury >= ac_sect_training_ground_cost
+		var:ac_sect.var:ac_estate_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+	}
+	effect = { ac_sect_build_training_ground_effect = yes }
+}
+ac_sect_estate_pending_training_ground = { scope = character
+	is_shown = { var:ac_sect = { has_variable = ac_native_construction var:ac_building ?= flag:training_ground } }
+}
+ac_sect_estate_select_scripture_library = { scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { set_variable = { name = ac_sect_estate_selected value = flag:scripture_library } }
+}
+ac_sect_estate_select_scripture_library_panel = { scope = character is_shown = { ac_sect_member_trigger = yes var:ac_sect_estate_selected ?= flag:scripture_library } }
+ac_sect_estate_commission_scripture_library = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = {
+		ac_sect_master_trigger = yes
+		var:ac_sect = { NOT = { has_variable = ac_building } var:ac_scripture_library < 3 }
+		var:ac_sect.var:ac_treasury >= ac_sect_scripture_library_cost
+		var:ac_sect.var:ac_estate_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+	}
+	effect = { ac_sect_build_scripture_library_effect = yes }
+}
+ac_sect_estate_pending_scripture_library = { scope = character
+	is_shown = { var:ac_sect = { has_variable = ac_native_construction var:ac_building ?= flag:scripture_library } }
+}
+ac_sect_estate_select_spirit_garden = { scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { set_variable = { name = ac_sect_estate_selected value = flag:spirit_garden } }
+}
+ac_sect_estate_select_spirit_garden_panel = { scope = character is_shown = { ac_sect_member_trigger = yes var:ac_sect_estate_selected ?= flag:spirit_garden } }
+ac_sect_estate_commission_spirit_garden = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = {
+		ac_sect_master_trigger = yes
+		var:ac_sect = { NOT = { has_variable = ac_building } var:ac_spirit_garden < 3 }
+		var:ac_sect.var:ac_treasury >= ac_sect_spirit_garden_cost
+		var:ac_sect.var:ac_estate_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+	}
+	effect = { ac_sect_build_spirit_garden_effect = yes }
+}
+ac_sect_estate_pending_spirit_garden = { scope = character
+	is_shown = { var:ac_sect = { has_variable = ac_native_construction var:ac_building ?= flag:spirit_garden } }
+}
+ac_sect_estate_select_formation_hall = { scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { set_variable = { name = ac_sect_estate_selected value = flag:formation_hall } }
+}
+ac_sect_estate_select_formation_hall_panel = { scope = character is_shown = { ac_sect_member_trigger = yes var:ac_sect_estate_selected ?= flag:formation_hall } }
+ac_sect_estate_commission_formation_hall = { scope = character
+	is_shown = { ac_sect_master_trigger = yes }
+	is_valid = {
+		ac_sect_master_trigger = yes
+		var:ac_sect = { NOT = { has_variable = ac_building } var:ac_formation_hall < 3 }
+		var:ac_sect.var:ac_treasury >= ac_sect_formation_hall_cost
+		var:ac_sect.var:ac_estate_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+	}
+	effect = { ac_sect_build_formation_hall_effect = yes }
+}
+ac_sect_estate_pending_formation_hall = { scope = character
+	is_shown = { var:ac_sect = { has_variable = ac_native_construction var:ac_building ?= flag:formation_hall } }
+}

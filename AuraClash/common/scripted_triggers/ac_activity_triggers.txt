@@ -1,0 +1,80 @@
+﻿# Generated from tools/event_activity_specs.py.
+ac_activity_aki_edge_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_akakiru_a_perk
+}
+
+ac_activity_aki_pike_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_akakiru_c_perk
+}
+
+ac_activity_aki_ranks_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_akakiru_d_perk
+}
+
+ac_activity_aki_duelist_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_akakiru_g_perk
+}
+
+ac_activity_mido_body_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_a_perk
+}
+
+ac_activity_mido_line_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_c_perk
+}
+
+ac_activity_mido_strengthen_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_d_perk
+}
+
+ac_activity_mido_rider_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_f_perk
+}
+
+ac_activity_mido_breaker_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_g_perk
+}
+
+ac_activity_mido_endurance_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_i_perk
+}
+
+ac_activity_aoyu_calm_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_b_perk
+}
+
+ac_activity_aoyu_mirror_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_c_perk
+}
+
+ac_activity_aoyu_prayer_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_h_perk
+}
+
+ac_activity_kii_academy_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kiihakai_h_perk
+}
+
+ac_activity_hunt_tracks_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_3_style_kiihakai_d_perk has_perk = ac_4_element_earth_e_perk }
+}
+
+ac_activity_pit_escape_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { ac_event_fall_rescue_trigger = yes ac_event_rubble_trigger = yes ac_activity_mido_body_trigger = yes }
+}

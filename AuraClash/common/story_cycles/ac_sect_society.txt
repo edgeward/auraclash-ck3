@@ -1,0 +1,29 @@
+﻿ac_sect_society = {
+	visible = yes
+	icon = { reference = "gfx/interface/icons/traits/ac_cultivator.dds" }
+	background = { reference = "gfx/interface/illustrations/event_scenes/ep3_medi_estate.dds" }
+	visualization = {
+		character_list = { variable_name = ac_members label = ac_sect_roster }
+		title = { variable_name = ac_kingdom label = ac_sect_kingdom }
+		custom_string_key = ac_sect_story_summary
+		basic_counter = { variable_name = ac_upper_count min = 0 max = 10 label = ac_sect_upper_label }
+		basic_counter = { variable_name = ac_lower_count min = 0 max = 20 label = ac_sect_lower_label }
+		decisions = { ac_sect_ledger_decision }
+	}
+	on_owner_death = { ac_sect_succession_effect = yes }
+	effect_group = {
+		months = 3
+		triggered_effect = { trigger = { always = yes } effect = { ac_sect_consider_recruitment_effect = yes } }
+	}
+	effect_group = {
+		days = 30
+		triggered_effect = {
+			trigger = { always = yes }
+			effect = { ac_sect_ensure_domicile_effect = yes ac_sect_finish_construction_effect = yes ac_sect_refresh_native_building_levels_effect = yes ac_sect_resolve_battle_effect = yes }
+		}
+	}
+	effect_group = {
+		months = 12
+		triggered_effect = { trigger = { always = yes } effect = { ac_sect_yearly_effect = yes } }
+	}
+}

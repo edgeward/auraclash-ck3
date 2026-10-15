@@ -1,0 +1,20 @@
+﻿ac_sect_cancel_native_construction_effect = {
+	if = { limit = { has_domicile_construction = ac_sect_cultivation_hall_01 } remove_domicile_building_no_refund = ac_sect_cultivation_hall_01 }
+	if = { limit = { has_domicile_construction = ac_sect_cultivation_hall_02 } remove_domicile_building_no_refund = ac_sect_cultivation_hall_02 }
+	if = { limit = { has_domicile_construction = ac_sect_cultivation_hall_03 } remove_domicile_building_no_refund = ac_sect_cultivation_hall_03 }
+	if = { limit = { has_domicile_construction = ac_sect_alchemy_pavilion_01 } remove_domicile_building_no_refund = ac_sect_alchemy_pavilion_01 }
+	if = { limit = { has_domicile_construction = ac_sect_alchemy_pavilion_02 } remove_domicile_building_no_refund = ac_sect_alchemy_pavilion_02 }
+	if = { limit = { has_domicile_construction = ac_sect_alchemy_pavilion_03 } remove_domicile_building_no_refund = ac_sect_alchemy_pavilion_03 }
+	if = { limit = { has_domicile_construction = ac_sect_training_ground_01 } remove_domicile_building_no_refund = ac_sect_training_ground_01 }
+	if = { limit = { has_domicile_construction = ac_sect_training_ground_02 } remove_domicile_building_no_refund = ac_sect_training_ground_02 }
+	if = { limit = { has_domicile_construction = ac_sect_training_ground_03 } remove_domicile_building_no_refund = ac_sect_training_ground_03 }
+	if = { limit = { has_domicile_construction = ac_sect_scripture_library_01 } remove_domicile_building_no_refund = ac_sect_scripture_library_01 }
+	if = { limit = { has_domicile_construction = ac_sect_scripture_library_02 } remove_domicile_building_no_refund = ac_sect_scripture_library_02 }
+	if = { limit = { has_domicile_construction = ac_sect_scripture_library_03 } remove_domicile_building_no_refund = ac_sect_scripture_library_03 }
+	if = { limit = { has_domicile_construction = ac_sect_spirit_garden_01 } remove_domicile_building_no_refund = ac_sect_spirit_garden_01 }
+	if = { limit = { has_domicile_construction = ac_sect_spirit_garden_02 } remove_domicile_building_no_refund = ac_sect_spirit_garden_02 }
+	if = { limit = { has_domicile_construction = ac_sect_spirit_garden_03 } remove_domicile_building_no_refund = ac_sect_spirit_garden_03 }
+	if = { limit = { has_domicile_construction = ac_sect_formation_hall_01 } remove_domicile_building_no_refund = ac_sect_formation_hall_01 }
+	if = { limit = { has_domicile_construction = ac_sect_formation_hall_02 } remove_domicile_building_no_refund = ac_sect_formation_hall_02 }
+	if = { limit = { has_domicile_construction = ac_sect_formation_hall_03 } remove_domicile_building_no_refund = ac_sect_formation_hall_03 }
+}

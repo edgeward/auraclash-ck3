@@ -1,0 +1,4 @@
+﻿gui/ac_sect_window.gui = ac_sect_window
+gui/ac_sect_estate_info.gui = ac_sect_estate_info
+gui/ac_sect_hud.gui = ac_sect_hud
+gui/ac_sect_contract_board.gui = ac_sect_contract_board

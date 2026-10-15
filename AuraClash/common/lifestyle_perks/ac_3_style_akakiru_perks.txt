@@ -175,7 +175,7 @@ ac_3_style_akakiru_h_perk = {
 	}
 
 	character_modifier = {
-		travel_speed_mult = 0.1
+		character_travel_speed_mult = 0.1
 		movement_speed = 0.05
 	}
 }
@@ -226,7 +226,7 @@ ac_3_style_akakiru_j_perk = {
 		prowess = 4
 		enemy_hard_casualty_modifier = 0.1
 		knight_limit = 1
-		travel_speed_mult = 0.1
+		character_travel_speed_mult = 0.1
 	}
 }
 

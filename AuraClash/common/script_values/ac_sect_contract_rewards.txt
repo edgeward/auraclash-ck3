@@ -1,0 +1,7 @@
+﻿ac_sect_patrol_reward_value = { value = 50 multiply = scope:ac_reward_contract.task_contract_tier }
+ac_sect_herbs_reward_value = { value = 50 multiply = scope:ac_reward_contract.task_contract_tier }
+ac_sect_manual_reward_value = { value = 70 multiply = scope:ac_reward_contract.task_contract_tier }
+ac_sect_mediation_reward_value = { value = 40 multiply = scope:ac_reward_contract.task_contract_tier }
+ac_sect_relief_reward_value = { value = 50 multiply = scope:ac_reward_contract.task_contract_tier }
+ac_sect_escort_reward_value = { value = 70 multiply = scope:ac_reward_contract.task_contract_tier }
+ac_sect_contract_xp_value = { value = 40 multiply = scope:ac_reward_contract.task_contract_tier }

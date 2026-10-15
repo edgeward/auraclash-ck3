@@ -16,7 +16,7 @@ ac_4_element_wind_a_perk = {
 	}
 
 	character_modifier = {
-		travel_speed_mult = 0.15
+		character_travel_speed_mult = 0.15
 	}
 }
 

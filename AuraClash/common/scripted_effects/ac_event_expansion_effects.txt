@@ -1,0 +1,16 @@
+﻿# A normal successful coronation intervention: record progress once, with no
+# additional crowd-crush roll and no fabricated deaths in the activity log.
+ac_event_coronation_rescue_effect = {
+    scope:activity = { activity_special_type_progression_medium = yes }
+    coronation_add_magnificence_log_effect = { VALUE = flag:positive_medium CHAR = root }
+    create_character_memory = { type = calmed_the_crowd_memory }
+    scope:new_memory ?= { set_variable = { name = memory_location value = root.location } }
+    scope:crush_initiator ?= {
+        send_interface_toast = {
+            title = ach_coronation.0015.a.tt.initiator.failure
+            custom_tooltip = ach_coronation.0015.a.tt.initiator.failure.desc
+            left_icon = root
+            right_icon = scope:host
+        }
+    }
+}

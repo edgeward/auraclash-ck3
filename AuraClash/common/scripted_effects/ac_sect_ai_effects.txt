@@ -1,0 +1,89 @@
+﻿# Annual estate management and allied training. NPC masters arrange recruitment
+# on a separate random quarterly pulse.
+ac_sect_ai_management_effect = {
+	if = {
+		limit = { story_owner = { is_ai = yes ac_sect_available_trigger = yes } }
+		story_owner = {
+			if = {
+				limit = { var:ac_sect = { NOT = { has_variable = ac_building } } }
+				if = { limit = { var:ac_sect.var:ac_alchemy_pavilion = 0 } ac_sect_build_alchemy_pavilion_effect = yes }
+				else_if = { limit = { var:ac_sect.var:ac_scripture_library = 0 } ac_sect_build_scripture_library_effect = yes }
+				else_if = {
+					limit = {
+						var:ac_sect = { OR = { var:ac_cultivation_hall < 3 var:ac_alchemy_pavilion < 3 var:ac_training_ground < 3 var:ac_scripture_library < 3 var:ac_spirit_garden < 3 var:ac_formation_hall < 3 } }
+					}
+					random_list = {
+						1 = { trigger = { var:ac_sect.var:ac_cultivation_hall < 3 } ac_sect_build_cultivation_hall_effect = yes }
+						1 = { trigger = { var:ac_sect.var:ac_alchemy_pavilion < 3 } ac_sect_build_alchemy_pavilion_effect = yes }
+						1 = { trigger = { var:ac_sect.var:ac_training_ground < 3 } ac_sect_build_training_ground_effect = yes }
+						1 = { trigger = { var:ac_sect.var:ac_scripture_library < 3 } ac_sect_build_scripture_library_effect = yes }
+						1 = { trigger = { var:ac_sect.var:ac_spirit_garden < 3 } ac_sect_build_spirit_garden_effect = yes }
+						1 = { trigger = { var:ac_sect.var:ac_formation_hall < 3 } ac_sect_build_formation_hall_effect = yes }
+					}
+				}
+			}
+			if = {
+				limit = { is_available = yes var:ac_sect.var:ac_treasury >= 50 }
+				random_list = {
+					20 = {
+						trigger = { var:ac_sect = { var:ac_treasury >= 75 any_in_list = { variable = ac_allies exists = story_owner } } }
+						var:ac_sect = { ac_sect_request_ai_activity_effect = { ACTIVITY = activity_ac_sect_joint_training } }
+					}
+					80 = { }
+				}
+			}
+		}
+	}
+}
+
+# Society scope. A ruler controller supplies native AI planning. Recruitment
+# transfers actual hosting to the sect master as soon as the activity exists.
+ac_sect_request_ai_activity_effect = {
+	save_scope_as = ac_sponsored_sect
+	clear_saved_scope = ac_activity_organizer
+	if = {
+		limit = {
+			NOT = { has_variable = ac_activity_plan }
+			NOT = { exists = var:ac_current_activity }
+			story_owner = { ac_sect_available_trigger = yes is_available = yes }
+		}
+		if = {
+			limit = { story_owner = { ac_sect_activity_ruler_trigger = yes } }
+			story_owner = { save_scope_as = ac_activity_organizer }
+		}
+		else_if = {
+			limit = { any_in_list = { variable = ac_members ac_sect_activity_ruler_trigger = yes } }
+			random_in_list = { variable = ac_members limit = { ac_sect_activity_ruler_trigger = yes } save_scope_as = ac_activity_organizer }
+		}
+		else_if = {
+			limit = { var:ac_headquarters.county.holder = { ac_sect_activity_ruler_trigger = yes } }
+			var:ac_headquarters.county.holder = { save_scope_as = ac_activity_organizer }
+		}
+		else = {
+			# A player may personally own the headquarters. Their AI vassals can
+			# arrange the activity without making that player its initiator.
+			var:ac_headquarters.county.holder = {
+				random_sub_realm_county = {
+					limit = { holder = { ac_sect_activity_ruler_trigger = yes } }
+					holder = { save_scope_as = ac_activity_organizer }
+				}
+			}
+			if = {
+				limit = { NOT = { exists = scope:ac_activity_organizer } }
+				var:ac_kingdom = {
+					random_de_jure_county_holder = { limit = { ac_sect_activity_ruler_trigger = yes } save_scope_as = ac_activity_organizer }
+				}
+			}
+		}
+		if = {
+			limit = { exists = scope:ac_activity_organizer }
+			set_variable = { name = ac_activity_plan value = flag:$ACTIVITY$ days = 90 }
+			set_variable = { name = ac_activity_organizer value = scope:ac_activity_organizer days = 90 }
+			scope:ac_activity_organizer = {
+				set_variable = { name = ac_sect_patronage value = scope:ac_sponsored_sect days = 365 }
+				set_variable = { name = ac_sect_planned_activity value = flag:$ACTIVITY$ days = 90 }
+				ai_attempt_to_host_activity = $ACTIVITY$
+			}
+		}
+	}
+}

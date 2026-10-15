@@ -1,0 +1,6 @@
+﻿namespace = ac_sect_mission
+ac_sect_mission.0001 = {
+	type = character_event hidden = yes
+	trigger = { ac_sect_member_trigger = yes }
+	immediate = { ac_sect_open_contract_board_effect = yes }
+}

@@ -1,0 +1,125 @@
+﻿# Character scope. Expressing interest never plans, funds, or starts an activity.
+ac_sect_register_interest_effect = {
+	remove_variable = ac_sect_application
+	if = {
+		limit = { NOT = { has_character_flag = ac_sect_recruitment_interest } }
+		add_character_flag = ac_sect_recruitment_interest
+		add_to_global_variable_list = { name = ac_sect_interested_characters target = this }
+	}
+}
+ac_sect_clear_interest_effect = {
+	remove_character_flag = ac_sect_recruitment_interest
+	remove_list_global_variable = { name = ac_sect_interested_characters target = this }
+	remove_variable = ac_sect_application
+}
+
+# Society scope. Recruitment belongs to the master and has its own random pulse,
+# independently of whether any player has expressed interest.
+ac_sect_consider_recruitment_effect = {
+	if = {
+		limit = { story_owner = { is_ai = yes } ac_sect_can_plan_trial_trigger = yes }
+		random = {
+			chance = 30
+			ac_sect_request_ai_activity_effect = { ACTIVITY = activity_ac_sect_trials }
+		}
+	}
+}
+
+# Activity scope. Keep the province estate busy through the whole activity,
+# even when the native planner and the actual master are different characters.
+ac_sect_mark_activity_started_effect = {
+	save_scope_as = ac_started_activity
+	scope:host = { save_scope_as = ac_started_organizer }
+	set_variable = { name = ac_activity_organizer value = scope:ac_started_organizer }
+	scope:ac_activity_home = {
+		set_variable = { name = ac_current_activity value = scope:ac_started_activity }
+		remove_variable = ac_activity_plan
+		remove_variable = ac_activity_organizer
+	}
+}
+ac_sect_release_activity_effect = {
+	save_scope_as = ac_finished_activity
+	clear_saved_scope = ac_finished_home
+	if = { limit = { has_variable = ac_trial_sect } var:ac_trial_sect = { save_scope_as = ac_finished_home } }
+	else_if = { limit = { has_variable = ac_training_sect } var:ac_training_sect = { save_scope_as = ac_finished_home } }
+	if = {
+		limit = { exists = scope:ac_finished_home }
+		scope:ac_finished_home = {
+			if = {
+				limit = { var:ac_current_activity ?= scope:ac_finished_activity }
+				remove_variable = ac_current_activity
+			}
+		}
+		var:ac_activity_organizer ?= {
+			if = {
+				limit = { var:ac_sect_patronage ?= scope:ac_finished_home }
+				remove_variable = ac_sect_patronage
+				remove_variable = ac_sect_planned_activity
+			}
+		}
+	}
+}
+
+# Activity scope, one day after creation. The ruler only supplies the native AI
+# planning controller; the sect master becomes the real activity host.
+ac_sect_install_trial_master_effect = {
+	var:ac_trial_sect.story_owner = { save_scope_as = ac_presiding_master }
+	if = {
+		limit = {
+			scope:ac_presiding_master = {
+				ac_sect_available_trigger = yes
+				OR = { is_available = yes involved_activity ?= scope:activity }
+			}
+		}
+		if = {
+			limit = { activity_host != scope:ac_presiding_master }
+			scope:ac_presiding_master = {
+				if = {
+					limit = { NOT = { involved_activity ?= scope:activity } }
+					if = { limit = { location = scope:activity.activity_location } add_to_activity_without_travel = scope:activity }
+					else = { add_to_activity = scope:activity }
+				}
+			}
+			set_activity_host = scope:ac_presiding_master
+		}
+		set_variable = { name = ac_trial_master value = scope:ac_presiding_master }
+		ac_sect_announce_trial_effect = yes
+	}
+	else = { invalidate_activity = scope:activity }
+}
+
+# Activity scope. Open-trial notifications require explicit player interest;
+# members requesting promotion are already known to the sect.
+ac_sect_announce_trial_effect = {
+	save_scope_as = ac_invited_trial
+	every_in_global_list = {
+		variable = ac_sect_interested_characters
+		limit = { is_ai = no has_character_flag = ac_sect_recruitment_interest }
+		ac_sect_send_trial_notice_effect = yes
+	}
+	var:ac_trial_sect = {
+		every_in_list = {
+			variable = ac_members
+			limit = { is_ai = no has_variable = ac_sect_promotion_requested }
+			ac_sect_send_trial_notice_effect = yes
+		}
+	}
+}
+# Character scope, with ac_invited_trial supplied by the master.
+ac_sect_send_trial_notice_effect = {
+	if = {
+		limit = {
+			can_join_activity = scope:ac_invited_trial
+			can_arrive_in_time_to_activity_minimum = scope:ac_invited_trial
+			scope:ac_invited_trial = { NOT = { is_target_in_variable_list = { name = ac_notified_characters target = prev } } }
+		}
+		save_scope_as = ac_notified_candidate
+		scope:ac_invited_trial = { add_to_variable_list = { name = ac_notified_characters target = scope:ac_notified_candidate } }
+		scope:ac_invited_trial.var:ac_trial_sect = {
+			var:ac_master = { save_scope_as = ac_announced_master }
+			var:ac_kingdom = { save_scope_as = ac_announced_kingdom }
+			var:ac_headquarters = { save_scope_as = ac_announced_headquarters }
+		}
+		trigger_event = ac_sect_trial.0020
+	}
+}

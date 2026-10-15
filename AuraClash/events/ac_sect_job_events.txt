@@ -1,0 +1,205 @@
+﻿namespace = ac_sect_job
+ac_sect_job.0001 = {
+	type = character_event
+	title = ac_sect_job.0001.t
+	desc = ac_sect_job.0001.desc
+	theme = martial
+	trigger = {
+		ac_sect_member_trigger = yes
+		var:ac_sect_mission ?= scope:ac_mission_contract
+		var:ac_sect = scope:ac_mission_contract.var:ac_contract_sect
+		scope:ac_mission_contract = { NOT = { has_variable = ac_resolved } }
+	}
+	option = {
+		name = ac_sect_job.0001.careful
+		custom_tooltip = ac_sect_job_careful_tt
+		set_variable = { name = ac_sect_mission_bonus value = 10 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0001.expert
+		trigger = { prowess >= 15 }
+		custom_tooltip = ac_sect_job_expert_tt
+		set_variable = { name = ac_sect_mission_bonus value = 20 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0001.cultivation
+		trigger = { OR = { has_trait = ac_style_akakiru has_trait = ac_style_midorikatai } }
+		custom_tooltip = ac_sect_job_cultivation_tt
+		set_variable = { name = ac_sect_mission_bonus value = 25 }
+		add_stress = 10
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = { name = ac_sect_mission.0002.abandon ac_sect_cancel_mission_effect = yes }
+}
+ac_sect_job.0002 = {
+	type = character_event
+	title = ac_sect_job.0002.t
+	desc = ac_sect_job.0002.desc
+	theme = learning
+	trigger = {
+		ac_sect_member_trigger = yes
+		var:ac_sect_mission ?= scope:ac_mission_contract
+		var:ac_sect = scope:ac_mission_contract.var:ac_contract_sect
+		scope:ac_mission_contract = { NOT = { has_variable = ac_resolved } }
+	}
+	option = {
+		name = ac_sect_job.0002.careful
+		custom_tooltip = ac_sect_job_careful_tt
+		set_variable = { name = ac_sect_mission_bonus value = 10 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0002.expert
+		trigger = { learning >= 15 }
+		custom_tooltip = ac_sect_job_expert_tt
+		set_variable = { name = ac_sect_mission_bonus value = 20 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0002.cultivation
+		trigger = { OR = { has_trait = ac_element_earth has_trait = ac_element_water } }
+		custom_tooltip = ac_sect_job_cultivation_tt
+		set_variable = { name = ac_sect_mission_bonus value = 25 }
+		add_stress = 10
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = { name = ac_sect_mission.0002.abandon ac_sect_cancel_mission_effect = yes }
+}
+ac_sect_job.0003 = {
+	type = character_event
+	title = ac_sect_job.0003.t
+	desc = ac_sect_job.0003.desc
+	theme = intrigue
+	trigger = {
+		ac_sect_member_trigger = yes
+		var:ac_sect_mission ?= scope:ac_mission_contract
+		var:ac_sect = scope:ac_mission_contract.var:ac_contract_sect
+		scope:ac_mission_contract = { NOT = { has_variable = ac_resolved } }
+	}
+	option = {
+		name = ac_sect_job.0003.careful
+		custom_tooltip = ac_sect_job_careful_tt
+		set_variable = { name = ac_sect_mission_bonus value = 10 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0003.expert
+		trigger = { intrigue >= 15 }
+		custom_tooltip = ac_sect_job_expert_tt
+		set_variable = { name = ac_sect_mission_bonus value = 20 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0003.cultivation
+		trigger = { has_trait = ac_style_kurokonton }
+		custom_tooltip = ac_sect_job_cultivation_tt
+		set_variable = { name = ac_sect_mission_bonus value = 25 }
+		add_stress = 10
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = { name = ac_sect_mission.0002.abandon ac_sect_cancel_mission_effect = yes }
+}
+ac_sect_job.0004 = {
+	type = character_event
+	title = ac_sect_job.0004.t
+	desc = ac_sect_job.0004.desc
+	theme = martial
+	trigger = {
+		ac_sect_member_trigger = yes
+		var:ac_sect_mission ?= scope:ac_mission_contract
+		var:ac_sect = scope:ac_mission_contract.var:ac_contract_sect
+		scope:ac_mission_contract = { NOT = { has_variable = ac_resolved } }
+	}
+	option = {
+		name = ac_sect_job.0004.careful
+		custom_tooltip = ac_sect_job_careful_tt
+		set_variable = { name = ac_sect_mission_bonus value = 10 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0004.expert
+		trigger = { diplomacy >= 15 }
+		custom_tooltip = ac_sect_job_expert_tt
+		set_variable = { name = ac_sect_mission_bonus value = 20 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0004.cultivation
+		trigger = { has_trait = ac_style_aoyusumu }
+		custom_tooltip = ac_sect_job_cultivation_tt
+		set_variable = { name = ac_sect_mission_bonus value = 25 }
+		add_stress = 10
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = { name = ac_sect_mission.0002.abandon ac_sect_cancel_mission_effect = yes }
+}
+ac_sect_job.0005 = {
+	type = character_event
+	title = ac_sect_job.0005.t
+	desc = ac_sect_job.0005.desc
+	theme = martial
+	trigger = {
+		ac_sect_member_trigger = yes
+		var:ac_sect_mission ?= scope:ac_mission_contract
+		var:ac_sect = scope:ac_mission_contract.var:ac_contract_sect
+		scope:ac_mission_contract = { NOT = { has_variable = ac_resolved } }
+	}
+	option = {
+		name = ac_sect_job.0005.careful
+		custom_tooltip = ac_sect_job_careful_tt
+		set_variable = { name = ac_sect_mission_bonus value = 10 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0005.expert
+		trigger = { stewardship >= 15 }
+		custom_tooltip = ac_sect_job_expert_tt
+		set_variable = { name = ac_sect_mission_bonus value = 20 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0005.cultivation
+		trigger = { OR = { has_trait = ac_style_aoyusumu has_trait = ac_element_water } }
+		custom_tooltip = ac_sect_job_cultivation_tt
+		set_variable = { name = ac_sect_mission_bonus value = 25 }
+		add_stress = 10
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = { name = ac_sect_mission.0002.abandon ac_sect_cancel_mission_effect = yes }
+}
+ac_sect_job.0006 = {
+	type = character_event
+	title = ac_sect_job.0006.t
+	desc = ac_sect_job.0006.desc
+	theme = martial
+	trigger = {
+		ac_sect_member_trigger = yes
+		var:ac_sect_mission ?= scope:ac_mission_contract
+		var:ac_sect = scope:ac_mission_contract.var:ac_contract_sect
+		scope:ac_mission_contract = { NOT = { has_variable = ac_resolved } }
+	}
+	option = {
+		name = ac_sect_job.0006.careful
+		custom_tooltip = ac_sect_job_careful_tt
+		set_variable = { name = ac_sect_mission_bonus value = 10 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0006.expert
+		trigger = { martial >= 15 }
+		custom_tooltip = ac_sect_job_expert_tt
+		set_variable = { name = ac_sect_mission_bonus value = 20 }
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = {
+		name = ac_sect_job.0006.cultivation
+		trigger = { OR = { has_trait = ac_style_kiihakai has_trait = ac_style_midorikatai } }
+		custom_tooltip = ac_sect_job_cultivation_tt
+		set_variable = { name = ac_sect_mission_bonus value = 25 }
+		add_stress = 10
+		ac_sect_resolve_mission_effect = yes
+	}
+	option = { name = ac_sect_mission.0002.abandon ac_sect_cancel_mission_effect = yes }
+}

@@ -1,0 +1,7 @@
+﻿l_english:
+ msg_domicile_building_cancelled.title:0 "[SelectLocalization( CHARACTER.HasTraitByKey('ac_sect_master'), 'ac_sect_domicile_cancelled_title', 'ac_sect_vanilla_cancelled_title' )]"
+ msg_domicile_building_cancelled.desc:0 "[SelectLocalization( CHARACTER.HasTraitByKey('ac_sect_master'), 'ac_sect_domicile_cancelled_desc', 'ac_sect_vanilla_cancelled_desc' )]"
+ msg_domicile_building_started.title:0 "[SelectLocalization( CHARACTER.HasTraitByKey('ac_sect_master'), 'ac_sect_domicile_started_title', 'ac_sect_vanilla_started_title' )]"
+ msg_domicile_building_started.desc:0 "[SelectLocalization( CHARACTER.HasTraitByKey('ac_sect_master'), 'ac_sect_domicile_started_desc', 'ac_sect_vanilla_started_desc' )]"
+ msg_domicile_building_completed.title:0 "[SelectLocalization( CHARACTER.HasTraitByKey('ac_sect_master'), 'ac_sect_domicile_completed_title', 'ac_sect_vanilla_completed_title' )]"
+ msg_domicile_building_completed.desc:0 "[SelectLocalization( CHARACTER.HasTraitByKey('ac_sect_master'), 'ac_sect_domicile_completed_desc', 'ac_sect_vanilla_completed_desc' )]"

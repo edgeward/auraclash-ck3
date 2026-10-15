@@ -1,0 +1,97 @@
+﻿ac_sect_ledger_decision = {
+	decision_group_type = ac_cultivation
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_destiny_goal.dds" }
+	desc = ac_sect_ledger_decision_desc
+	selection_tooltip = ac_sect_ledger_decision_tooltip
+	confirm_text = ac_sect_ledger_decision_confirm
+	is_shown = { is_adult = yes }
+	ai_check_interval = 0
+	effect = {
+		if = {
+			limit = { ac_sect_member_trigger = yes }
+			var:ac_sect = { ac_sect_recount_effect = yes ac_sect_finish_construction_effect = yes }
+			trigger_event = ac_sect.0001
+		}
+		else = {
+			ac_sect_register_interest_effect = yes
+			trigger_event = ac_sect.0002
+		}
+	}
+	ai_will_do = { base = 0 }
+}
+ac_sect_request_promotion_decision = {
+	decision_group_type = ac_cultivation
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_knight_kneeling.dds" }
+	desc = ac_sect_request_promotion_decision_desc
+	selection_tooltip = ac_sect_request_promotion_decision_tooltip
+	confirm_text = ac_sect_request_promotion_decision_confirm
+	is_shown = { has_trait = ac_sect_lower_disciple }
+	is_valid = { ac_sect_promotion_ready_trigger = yes }
+	ai_check_interval = 12
+	effect = {
+		set_variable = { name = ac_sect_promotion_requested value = 1 }
+		custom_tooltip = ac_sect_promotion_requested_tt
+	}
+	ai_will_do = { base = 100 }
+}
+ac_sect_use_pill_decision = {
+	decision_group_type = ac_cultivation
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_destiny_goal.dds" }
+	desc = ac_sect_use_pill_decision_desc
+	selection_tooltip = ac_sect_use_pill_decision_tooltip
+	confirm_text = ac_sect_use_pill_decision_confirm
+	is_shown = { has_variable = ac_sect_pills var:ac_sect_pills > 0 }
+	is_valid = { has_trait = ac_cultivator ac_sect_available_trigger = yes }
+	cooldown = { months = 6 }
+	ai_check_interval = 6
+	effect = {
+		change_variable = { name = ac_sect_pills subtract = 1 }
+		add_stress = -30
+		add_trait_xp = { trait = ac_cultivator track = ac_core_fortitude value = 5 }
+		add_character_modifier = { modifier = ac_sect_medicinal_pill_modifier months = 6 }
+	}
+	ai_will_do = { base = 100 }
+}
+ac_sect_seek_leadership_decision = {
+	decision_group_type = ac_cultivation
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_knight_kneeling.dds" }
+	desc = ac_sect_seek_leadership_decision_desc
+	selection_tooltip = ac_sect_seek_leadership_decision_tooltip
+	confirm_text = ac_sect_seek_leadership_decision_confirm
+	is_shown = { ac_sect_member_trigger = yes has_trait = ac_sect_upper_disciple }
+	is_valid = {
+		ac_sect_available_trigger = yes
+		var:ac_sect_merit >= 400
+		var:ac_sect_contribution >= 200
+		var:ac_sect.story_owner = { is_ai = yes }
+	}
+	cooldown = { years = 5 }
+	ai_check_interval = 0
+	effect = { trigger_event = ac_sect.0021 }
+	ai_will_do = { base = 0 }
+}
+ac_sect_found_decision = {
+	decision_group_type = ac_cultivation
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_destiny_goal.dds" }
+	desc = ac_sect_found_decision_desc
+	selection_tooltip = ac_sect_found_decision_tooltip
+	confirm_text = ac_sect_found_decision_confirm
+	is_shown = {
+		has_trait = ac_cultivator
+		NOT = { has_variable = ac_sect }
+		is_landed = yes
+		capital_province.kingdom = { NOT = { has_variable = ac_kingdom_sect } }
+		capital_province = { NOT = { has_variable = ac_province_sect } }
+	}
+	is_valid = { ac_sect_available_trigger = yes }
+	cost = { gold = 300 prestige = 500 }
+	ai_check_interval = 0
+	effect = {
+		capital_province = { save_scope_as = ac_sect_hq }
+		capital_province.kingdom = { save_scope_as = ac_sect_kingdom }
+		ac_sect_found_effect = yes
+		ac_sect_seed_roster_effect = yes
+		trigger_event = ac_sect.0020
+	}
+	ai_will_do = { base = 0 }
+}

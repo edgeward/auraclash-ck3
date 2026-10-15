@@ -1,0 +1,151 @@
+﻿namespace = ac_sect
+ac_sect.0001 = {
+	type = character_event
+	title = ac_sect.0001.t
+	desc = ac_sect.0001.desc
+	theme = learning
+	trigger = { ac_sect_member_trigger = yes }
+	left_portrait = { character = var:ac_sect.story_owner animation = personality_honorable }
+	option = { name = ac_sect.0001.estate trigger_event = ac_sect_estate.0001 }
+	option = { name = ac_sect.0001.screen set_variable = { name = ac_sect_window_open value = 1 } }
+	option = { name = ac_sect.0001.missions trigger_event = ac_sect_mission.0001 }
+	option = { name = ac_sect.0001.exchange trigger_event = ac_sect.0010 }
+	option = { name = ac_sect.0001.diplomacy ac_sect_find_neighbor_effect = yes }
+	option = {
+		name = ac_sect.0001.promotion
+		trigger = { ac_sect_promotion_ready_trigger = yes }
+		set_variable = { name = ac_sect_promotion_requested value = 1 }
+		custom_tooltip = ac_sect_promotion_requested_tt
+	}
+	option = {
+		name = ac_sect.0001.donate
+		trigger = { gold >= 100 }
+		remove_short_term_gold = 100
+		var:ac_sect = { change_variable = { name = ac_treasury add = 100 } }
+		custom_tooltip = ac_sect_donation_tt
+	}
+	option = { name = ac_sect.0001.leave trigger = { ac_sect_master_trigger = no } trigger_event = ac_sect.0011 }
+	option = { name = ac_sect_close }
+}
+ac_sect.0002 = {
+	type = character_event
+	title = ac_sect.0002.t
+	desc = ac_sect.0002.desc
+	theme = learning
+	option = {
+		name = ac_sect.0002.apply
+		custom_tooltip = ac_sect_application_tt
+	}
+	option = { name = ac_sect.0002.withdraw ac_sect_clear_interest_effect = yes }
+}
+ac_sect.0003 = {
+	type = character_event
+	title = ac_sect.0003.t
+	desc = ac_sect.0003.desc
+	theme = diplomacy
+	trigger = { ac_sect_member_trigger = yes exists = var:ac_viewed_sect.story_owner }
+	left_portrait = { character = var:ac_viewed_sect.story_owner }
+	option = {
+		name = ac_sect_offer_alliance_interaction
+		trigger = { ac_sect_master_trigger = yes }
+		open_interaction_window = { interaction = ac_sect_offer_alliance_interaction actor = root recipient = var:ac_viewed_sect.story_owner }
+	}
+	option = {
+		name = ac_sect_end_alliance_interaction
+		trigger = { ac_sect_master_trigger = yes }
+		open_interaction_window = { interaction = ac_sect_end_alliance_interaction actor = root recipient = var:ac_viewed_sect.story_owner }
+	}
+	option = {
+		name = ac_sect_rivalry_interaction
+		trigger = { ac_sect_master_trigger = yes }
+		open_interaction_window = { interaction = ac_sect_rivalry_interaction actor = root recipient = var:ac_viewed_sect.story_owner }
+	}
+	option = {
+		name = ac_sect_battle_interaction
+		trigger = { ac_sect_master_trigger = yes }
+		open_interaction_window = { interaction = ac_sect_battle_interaction actor = root recipient = var:ac_viewed_sect.story_owner }
+	}
+	option = { name = ac_sect.0003.next ac_sect_find_neighbor_effect = yes }
+	option = { name = ac_sect_back trigger_event = ac_sect.0001 }
+}
+ac_sect.0010 = {
+	type = character_event
+	title = ac_sect.0010.t
+	desc = ac_sect.0010.desc
+	theme = stewardship
+	trigger = { ac_sect_member_trigger = yes }
+	option = {
+		name = ac_sect.0010.pill
+		trigger = { var:ac_sect_contribution >= 50 var:ac_sect.var:ac_alchemy_pavilion >= 1 }
+		change_variable = { name = ac_sect_contribution subtract = 50 }
+		if = { limit = { NOT = { has_variable = ac_sect_pills } } set_variable = { name = ac_sect_pills value = 0 } }
+		change_variable = { name = ac_sect_pills add = 1 }
+		custom_tooltip = ac_sect_pill_tt
+	}
+	option = {
+		name = ac_sect.0010.manual
+		trigger = {
+			var:ac_sect_contribution >= 75
+			var:ac_sect.var:ac_scripture_library >= 1
+			NOT = { has_character_flag = ac_sect_manual_cooldown }
+		}
+		change_variable = { name = ac_sect_contribution subtract = 75 }
+		add_ac_cultivation_lifestyle_xp = 150
+		add_character_flag = { flag = ac_sect_manual_cooldown months = 6 }
+	}
+	option = {
+		name = ac_sect.0010.gold
+		trigger = { var:ac_sect_contribution >= 50 var:ac_sect.var:ac_treasury >= 40 }
+		change_variable = { name = ac_sect_contribution subtract = 50 }
+		var:ac_sect = { change_variable = { name = ac_treasury subtract = 40 } }
+		add_gold = 40
+	}
+	option = { name = ac_sect_back trigger_event = ac_sect.0001 }
+}
+ac_sect.0011 = {
+	type = character_event
+	title = ac_sect.0011.t
+	desc = ac_sect.0011.desc
+	theme = learning
+	trigger = { ac_sect_member_trigger = yes ac_sect_master_trigger = no }
+	option = { name = ac_sect.0011.leave ac_sect_leave_effect = yes }
+	option = { name = ac_sect_back trigger_event = ac_sect.0001 }
+}
+ac_sect.0020 = {
+	type = character_event
+	title = ac_sect.0020.t
+	desc = ac_sect.0020.desc
+	theme = learning
+	option = { name = ac_sect.0020.accept }
+}
+ac_sect.0021 = {
+	type = character_event
+	title = ac_sect.0021.t
+	desc = ac_sect.0021.desc
+	theme = diplomacy
+	trigger = { ac_sect_member_trigger = yes has_trait = ac_sect_upper_disciple var:ac_sect_contribution >= 200 }
+	option = {
+		name = ac_sect.0021.petition
+		change_variable = { name = ac_sect_contribution subtract = 200 }
+		random_list = {
+			60 = {
+				var:ac_sect.story_owner = { save_scope_as = actor }
+				save_scope_as = recipient
+				scope:actor = { remove_trait = ac_sect_master add_trait = ac_sect_upper_disciple }
+				remove_trait = ac_sect_upper_disciple
+				add_trait = ac_sect_master
+				var:ac_sect = { make_story_owner = scope:recipient set_variable = { name = ac_master value = scope:recipient } ac_sect_ensure_domicile_effect = yes ac_sect_recount_effect = yes }
+				trigger_event = ac_sect.0020
+			}
+			40 = { add_stress = 20 }
+		}
+	}
+	option = { name = ac_sect_close }
+}
+ac_sect.0030 = {
+	type = character_event
+	title = ac_sect.0030.t
+	desc = ac_sect.0030.desc
+	theme = martial
+	option = { name = ac_sect.0030.accept }
+}

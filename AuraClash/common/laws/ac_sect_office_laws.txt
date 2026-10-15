@@ -1,0 +1,15 @@
+﻿ac_sect_office_succession_law = {
+	law_group_type = succession_order_laws
+	index = 1000
+	can_realm_have = { has_government = ac_sect_government }
+	can_keep = { always = yes }
+	can_have = { always = yes }
+	should_start_with = { has_government = ac_sect_government }
+	potential = { has_government = ac_sect_government }
+	succession = {
+		order_of_succession = generate
+		pool_character_config = ac_sect_office_pool
+		gender_law = equal
+		resign_outside_realm = no
+	}
+}

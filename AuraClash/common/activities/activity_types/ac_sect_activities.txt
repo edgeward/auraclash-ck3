@@ -1,0 +1,248 @@
+﻿# Examination-inspired trials: every candidate is scored separately and must
+# complete all three phases at the sect's fixed headquarters.
+activity_ac_sect_trials = {
+	is_shown = {
+		custom_tooltip = {
+			text = ac_sect_trial_master_host_tt
+			OR = { ac_sect_master_trigger = yes ac_sect_trial_planner_trigger = yes }
+		}
+	}
+	notify_player_can_join_activity = yes
+	can_start = {
+		custom_tooltip = {
+			text = ac_sect_trial_ready_tt
+			ac_sect_trial_planner_trigger = yes
+			ac_sect_available_trigger = yes
+			is_available = yes
+			NOT = { is_activity_type_on_cooldown = activity_ac_sect_trials }
+			trigger_if = { limit = { is_ai = yes has_variable = ac_sect_planned_activity } var:ac_sect_planned_activity = flag:activity_ac_sect_trials }
+		}
+		custom_tooltip = { text = ac_sect_trial_funds_tt ac_sect_host_treasury_trigger = { COST = 50 } }
+	}
+	can_start_showing_failures_only = { always = yes }
+	# Creation validity runs before on_start initializes the activity variables.
+	is_valid = {
+		trigger_if = {
+			limit = { has_variable = ac_trial_master }
+			activity_host = var:ac_trial_master
+			var:ac_trial_master = { is_alive = yes }
+		}
+		scope:host = {
+			trigger_if = { limit = { has_variable = ac_sect_patronage } exists = var:ac_sect_patronage.story_owner }
+			trigger_else_if = { limit = { has_variable = ac_sect } exists = var:ac_sect.story_owner }
+			trigger_else = { exists = var:ac_sect_application.story_owner }
+		}
+	}
+	on_host_death = { invalidate_activity = scope:activity }
+	on_invalidated = {
+		every_attending_character = { ac_sect_refund_trial_effect = yes }
+		if = {
+			limit = { has_variable = ac_trial_funded NOT = { has_variable = ac_trial_begun } }
+			var:ac_trial_sect = { change_variable = { name = ac_treasury add = 50 } }
+			remove_variable = ac_trial_funded
+		}
+		ac_sect_release_activity_effect = yes
+	}
+	province_filter = all
+	is_location_valid = { custom_tooltip = { text = ac_sect_headquarters_location_tt ac_sect_activity_location_trigger = yes } }
+	province_score = { value = 100 }
+	ai_will_select_province = { value = 100 }
+	is_single_location = yes
+	wait_time_before_start = { days = 60 }
+	max_guest_arrival_delay_time = { days = 60 }
+	cooldown = { months = 12 }
+	cost = { gold = 0 }
+	ui_predicted_cost = { gold = 0 }
+	max_guests = 80
+	allow_zero_guest_invites = yes
+	open_invite = yes
+	can_be_activity_guest = {
+		ac_sect_available_trigger = yes
+		OR = {
+			this = scope:host
+			AND = { ac_sect_member_trigger = yes ac_sect_activity_member_trigger = yes }
+			ac_sect_trial_candidate_for_host_trigger = yes
+		}
+	}
+	guest_invite_rules = { defaults = { 1 = ac_sect_invite_members 2 = ac_sect_invite_candidates } }
+	guest_join_chance = { base = 70 }
+	host_intents = { intents = { ac_sect_study_intent } default = ac_sect_study_intent }
+	guest_intents = { intents = { ac_sect_study_intent } default = ac_sect_study_intent }
+	ai_check_interval = 60
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = { ac_sect_trial_planner_trigger = yes }
+			add = 100
+		}
+	}
+	on_start = {
+		scope:host = { ac_sect_save_activity_home_effect = yes }
+		set_variable = { name = ac_trial_sect value = scope:ac_activity_home }
+		ac_sect_mark_activity_started_effect = yes
+		set_variable = { name = ac_trial_funded value = 1 }
+		var:ac_trial_sect = {
+			change_variable = { name = ac_treasury subtract = 50 }
+			set_variable = { name = ac_trial_cooldown value = 1 years = 1 }
+		}
+		scope:host = { trigger_event = { id = ac_sect_trial.0100 days = 1 } }
+	}
+	phases = {
+		ac_sect_theory_phase = {
+			is_predefined = yes
+			order = 1
+			location_source = pickable
+			on_phase_active_activity = { set_variable = { name = ac_trial_begun value = 1 } progress_activity_phase_after = { days = 20 } }
+			on_phase_active = {
+				ac_sect_begin_trial_effect = yes
+			}
+		}
+		ac_sect_body_phase = {
+			is_predefined = yes
+			order = 2
+			location_source = pickable
+			on_enter_phase = { if = { limit = { this = scope:host } scope:activity = { progress_activity_phase_after = { days = 1 } } } }
+			on_phase_active_activity = { progress_activity_phase_after = { days = 20 } }
+			on_phase_active = {
+				if = {
+					limit = { var:ac_sect_trial_activity ?= scope:activity }
+					change_variable = { name = ac_sect_trial_score add = prowess }
+					trigger_event = ac_sect_trial.0002
+				}
+			}
+		}
+		ac_sect_spirit_phase = {
+			is_predefined = yes
+			order = 3
+			location_source = pickable
+			on_enter_phase = { if = { limit = { this = scope:host } scope:activity = { progress_activity_phase_after = { days = 1 } } } }
+			on_phase_active_activity = { progress_activity_phase_after = { days = 10 } }
+			on_phase_active = {
+				if = {
+					limit = { var:ac_sect_trial_activity ?= scope:activity }
+					if = { limit = { has_trait = ac_cultivator } change_variable = { name = ac_sect_trial_score add = 10 } }
+					random_list = {
+						1 = { change_variable = { name = ac_sect_trial_score add = 0 } }
+						2 = { change_variable = { name = ac_sect_trial_score add = 5 } }
+						1 = { change_variable = { name = ac_sect_trial_score add = 10 } }
+					}
+				}
+			}
+		}
+	}
+	on_complete = {
+		scope:activity = {
+			if = {
+				limit = { NOT = { has_variable = ac_trials_resolved } }
+				set_variable = { name = ac_trials_resolved value = 1 }
+				# Promotions free lower-disciple places before admission is ranked.
+				ordered_attending_character = {
+					limit = { var:ac_sect_trial_activity ?= scope:activity has_variable = ac_sect_trial_paid }
+					order_by = var:ac_sect_trial_score
+					ac_sect_complete_trial_effect = yes
+				}
+				ordered_attending_character = {
+					limit = { var:ac_sect_trial_activity ?= scope:activity }
+					order_by = var:ac_sect_trial_score
+					ac_sect_complete_trial_effect = yes
+				}
+			}
+			ac_sect_release_activity_effect = yes
+		}
+	}
+	header_background = "gfx/interface/illustrations/event_scenes/ep3_medi_estate.dds"
+}
+
+activity_ac_sect_joint_training = {
+	is_shown = { OR = { ac_sect_member_trigger = yes has_variable = ac_sect_patronage } }
+	can_start = {
+		ac_sect_available_trigger = yes
+		is_available = yes
+		NOT = { is_activity_type_on_cooldown = activity_ac_sect_joint_training }
+		trigger_if = { limit = { is_ai = yes has_variable = ac_sect_planned_activity } var:ac_sect_planned_activity = flag:activity_ac_sect_joint_training }
+		ac_sect_host_allies_trigger = yes
+		trigger_if = { limit = { has_variable = ac_sect_patronage } NOT = { exists = var:ac_sect_patronage.var:ac_current_activity } }
+		trigger_else = { NOT = { exists = var:ac_sect.var:ac_current_activity } }
+		trigger_if = { limit = { is_ai = yes } ac_sect_host_treasury_trigger = { COST = 75 } }
+	}
+	can_start_showing_failures_only = { gold >= ac_sect_joint_host_gold }
+	is_valid = { scope:host = { OR = { ac_sect_member_trigger = yes exists = var:ac_sect_patronage.story_owner } } }
+	on_host_death = { invalidate_activity = scope:activity }
+	on_invalidated = { ac_sect_release_activity_effect = yes }
+	province_filter = all
+	is_location_valid = { ac_sect_activity_location_trigger = yes }
+	province_score = { value = 100 }
+	ai_will_select_province = { value = 100 }
+	is_single_location = yes
+	wait_time_before_start = { days = 90 }
+	max_guest_arrival_delay_time = { days = 60 }
+	cooldown = { months = 24 }
+	cost = { gold = ac_sect_joint_host_gold }
+	ui_predicted_cost = { gold = 75 }
+	max_guests = 100
+	allow_zero_guest_invites = yes
+	open_invite = yes
+	can_be_activity_guest = {
+		ac_sect_available_trigger = yes
+		OR = {
+			this = scope:host
+			AND = { ac_sect_member_trigger = yes ac_sect_activity_member_or_ally_trigger = yes }
+		}
+	}
+	guest_invite_rules = { defaults = { 1 = ac_sect_invite_members 2 = ac_sect_invite_allies } }
+	guest_join_chance = { base = 90 }
+	host_intents = { intents = { ac_sect_study_intent } default = ac_sect_study_intent }
+	guest_intents = { intents = { ac_sect_study_intent } default = ac_sect_study_intent }
+	ai_check_interval = 60
+	ai_will_do = { value = 0 if = { limit = { OR = { ac_sect_master_trigger = yes has_variable = ac_sect_patronage } } add = 100 } }
+	on_start = {
+		scope:host = { ac_sect_save_activity_home_effect = yes }
+		set_variable = { name = ac_training_sect value = scope:ac_activity_home }
+		ac_sect_mark_activity_started_effect = yes
+		if = { limit = { scope:host = { is_ai = yes } } var:ac_training_sect = { change_variable = { name = ac_treasury subtract = 75 } } }
+	}
+	phases = {
+		ac_sect_joint_forms_phase = {
+			is_predefined = yes
+			order = 1
+			location_source = pickable
+			on_phase_active_activity = { progress_activity_phase_after = { days = 30 } }
+			on_phase_active = {
+				trigger_event = ac_sect_trial.0010
+			}
+		}
+		ac_sect_joint_formation_phase = {
+			is_predefined = yes
+			order = 2
+			location_source = pickable
+			on_enter_phase = { if = { limit = { this = scope:host } scope:activity = { progress_activity_phase_after = { days = 1 } } } }
+			on_phase_active_activity = { progress_activity_phase_after = { days = 20 } }
+		}
+	}
+	on_complete = {
+		if = {
+			limit = {
+				ac_sect_member_trigger = yes
+				OR = {
+					var:ac_sect = scope:activity.var:ac_training_sect
+					scope:activity.var:ac_training_sect = { is_target_in_variable_list = { name = ac_allies target = prev.var:ac_sect } }
+				}
+				scope:activity = {
+					any_attending_character = { ac_sect_member_trigger = yes var:ac_sect = scope:activity.var:ac_training_sect }
+					any_attending_character = {
+						ac_sect_member_trigger = yes
+						var:ac_sect != scope:activity.var:ac_training_sect
+						scope:activity.var:ac_training_sect = { is_target_in_variable_list = { name = ac_allies target = prev.var:ac_sect } }
+					}
+				}
+			}
+			ac_sect_award_contribution_effect = { VALUE = 30 }
+			add_ac_cultivation_lifestyle_xp = 100
+			add_trait_xp = { trait = ac_cultivator track = ac_core_power value = 5 }
+			add_character_modifier = { modifier = ac_sect_joint_training_modifier years = 2 }
+			var:ac_sect = { set_variable = { name = ac_joint_drill value = 1 years = 2 } }
+		}
+		scope:activity = { ac_sect_release_activity_effect = yes }
+	}
+	header_background = "gfx/interface/illustrations/event_scenes/ep3_medi_estate.dds"
+}

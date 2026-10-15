@@ -1,0 +1,17 @@
+﻿ac_sect_finish_construction_effect = { if = { limit = { has_variable = ac_building NOT = { has_variable = ac_building_timer } NOT = { has_variable = ac_native_construction } }
+		if = { limit = { var:ac_building = flag:cultivation_hall } change_variable = { name = ac_cultivation_hall add = 1 } }
+		if = { limit = { var:ac_building = flag:alchemy_pavilion } change_variable = { name = ac_alchemy_pavilion add = 1 } }
+		if = { limit = { var:ac_building = flag:training_ground } change_variable = { name = ac_training_ground add = 1 } }
+		if = { limit = { var:ac_building = flag:scripture_library } change_variable = { name = ac_scripture_library add = 1 } }
+		if = { limit = { var:ac_building = flag:spirit_garden } change_variable = { name = ac_spirit_garden add = 1 } }
+		if = { limit = { var:ac_building = flag:formation_hall } change_variable = { name = ac_formation_hall add = 1 } }
+		remove_variable = ac_building
+		ac_sect_migrate_building_levels_effect = yes
+		story_owner = { send_interface_toast = { type = event_toast_effect_good title = ac_sect_construction_complete left_icon = this } }
+	} }
+ac_sect_training_effect = {
+	add_ac_cultivation_lifestyle_xp = ac_sect_annual_study_xp
+	add_trait_xp = { trait = ac_cultivator track = ac_core_power value = var:ac_sect.var:ac_training_ground }
+	add_trait_xp = { trait = ac_cultivator track = ac_core_fortitude value = var:ac_sect.var:ac_spirit_garden }
+	add_trait_xp = { trait = ac_cultivator track = ac_core_agility value = var:ac_sect.var:ac_formation_hall }
+}

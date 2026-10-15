@@ -1,0 +1,29 @@
+﻿ac_event_chi_exertion_modifier = {
+	icon = martial_negative
+	prowess = -2
+	stress_gain_mult = 0.1
+}
+ac_event_great_exertion_modifier = {
+	icon = martial_negative
+	prowess = -4
+	health = -0.25
+	stress_gain_mult = 0.2
+}
+ac_event_restored_fields_modifier = {
+	development_growth_factor = 0.15
+	supply_limit_mult = 0.15
+}
+ac_event_warded_patrols_modifier = {
+	monthly_county_control_growth_add = 0.2
+}
+ac_event_cultivator_patrols_modifier = {
+	monthly_county_control_growth_add = 0.2
+}
+ac_event_preserved_provisions_modifier = {
+	icon = stewardship_positive
+	character_travel_safety = 5
+}
+ac_event_poison_recovery_modifier = {
+	icon = health_negative
+	health = -0.25
+}

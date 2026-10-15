@@ -1,0 +1,78 @@
+﻿on_game_start_after_lobby = { on_actions = { ac_sect_initialize } }
+# Existing saves are initialized lazily on the next playable pulse as well.
+quarterly_playable_pulse = { on_actions = { ac_sect_initialize ac_sect_trial_repair } }
+on_death = { on_actions = { ac_sect_member_death } }
+ac_sect_initialize = {
+	trigger = { NOT = { has_global_variable = ac_sects_initialized } }
+	effect = {
+		set_global_variable = { name = ac_sects_initialized value = 1 }
+		every_kingdom = {
+			limit = { ac_sect_kingdom_eligible_trigger = yes }
+			save_scope_as = ac_sect_kingdom
+			title_capital_county.title_province = { save_scope_as = ac_sect_hq }
+			title_capital_county.holder = {
+				create_character = {
+					gender_female_chance = 50
+					age = 45
+					culture = this.culture
+					faith = this.faith
+					location = scope:ac_sect_hq
+					random_traits = yes
+					save_scope_as = ac_founder
+				}
+			}
+			scope:ac_founder = {
+				add_gold = 100
+				ac_sect_found_effect = yes
+				ac_sect_seed_roster_effect = yes
+			}
+		}
+		every_in_global_list = { variable = ac_sects ac_sect_ai_diplomacy_effect = yes }
+	}
+}
+ac_sect_trial_repair = {
+	trigger = { OR = { has_variable = ac_sect_trial_activity has_variable = ac_sect_trial_paid } }
+	effect = {
+		if = {
+			limit = { NOT = { involved_activity ?= var:ac_sect_trial_activity } }
+			ac_sect_refund_trial_effect = yes
+		}
+	}
+}
+ac_sect_member_death = {
+	trigger = { OR = { has_variable = ac_sect has_character_flag = ac_sect_recruitment_interest } }
+	effect = {
+		ac_sect_clear_interest_effect = yes
+		# Story owner death transfers leadership separately. Do not clear its scope first.
+		if = {
+			limit = { has_variable = ac_sect NOT = { var:ac_sect.story_owner = this } }
+			ac_sect_leave_effect = yes
+		}
+	}
+}
+
+# Native title succession may finish after a story's owner-death effect. Repair
+# only a sect office and only after its living Master has already been chosen.
+on_title_gain = { on_actions = { ac_sect_native_title_gain } }
+ac_sect_native_title_gain = {
+    trigger = {
+        exists = scope:title.title_domicile.var:ac_domicile_sect
+        scope:title.title_domicile.var:ac_domicile_sect.story_owner = {
+            is_alive = yes has_trait = ac_sect_master this != root
+        }
+    }
+    effect = {
+        scope:title.title_domicile.var:ac_domicile_sect.story_owner = {
+            trigger_event = { id = ac_sect_estate.0002 days = 1 }
+        }
+    }
+}
+
+# Extends native hooks; a cancelled mission journey cannot leave a reserved job.
+on_travel_plan_abort = { on_actions = { ac_sect_contract_travel_aborted } }
+on_travel_plan_cancel = { on_actions = { ac_sect_contract_travel_aborted } }
+on_travel_plan_complete = { on_actions = { ac_sect_contract_travel_aborted } }
+ac_sect_contract_travel_aborted = {
+ trigger = { has_variable = ac_sect_mission_journey exists = var:ac_sect_mission }
+ effect = { ac_sect_cancel_mission_effect = yes }
+}

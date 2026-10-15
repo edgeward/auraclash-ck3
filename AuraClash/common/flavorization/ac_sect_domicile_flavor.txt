@@ -1,0 +1,9 @@
+﻿domicile_ac_sect_estate = {
+	type = domicile domicile_type = ac_sect_estate priority = 100
+	flavourization_rules = { top_liege = no }
+}
+ac_sect_master_holder = {
+	type = character special = holder tier = county priority = 500
+	governments = { ac_sect_government }
+	flavourization_rules = { top_liege = no spouse_takes_title = no }
+}

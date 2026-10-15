@@ -1,0 +1,164 @@
+﻿# Generated from tools/event_expansion_specs.py.
+ac_event_rubble_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_earth_a_perk has_perk = ac_3_style_midorikatai_g_perk }
+}
+ac_event_relief_healer_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { ac_can_chi_heal_trigger = yes has_perk = ac_1_alchemy_i_perk } NOT = { has_character_flag = ac_chi_healing_cooldown }
+}
+ac_event_relief_food_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_earth_d_perk has_perk = ac_4_element_earth_h_perk has_perk = ac_4_element_ice_b_perk }
+}
+ac_event_bind_looters_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_2_handseals_h_perk
+}
+ac_event_subjugation_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_e_perk
+}
+ac_event_prevention_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_light_c_perk has_perk = ac_1_alchemy_j_perk has_perk = ac_2_handseals_g_perk }
+}
+ac_event_alchemist_book_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_1_alchemy_j_perk
+}
+ac_event_burial_earth_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_4_element_earth_a_perk
+}
+ac_event_burial_fire_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_4_element_fire_g_perk
+}
+ac_event_purification_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_fire_i_perk has_perk = ac_4_element_light_c_perk }
+}
+ac_event_corpse_seal_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_2_handseals_g_perk has_perk = ac_3_style_kiihakai_e_perk }
+}
+ac_event_illness_healer_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_light_c_perk has_perk = ac_1_alchemy_c_perk } NOT = { has_character_flag = ac_chi_healing_cooldown }
+}
+ac_event_wind_arrows_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_4_element_wind_f_perk
+}
+ac_event_treasure_repair_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_1_alchemy_f_perk
+}
+ac_event_poison_gift_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_1_alchemy_b_perk has_perk = ac_1_alchemy_d_perk
+}
+ac_event_tunnel_scry_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kiihakai_d_perk
+}
+ac_event_tunnel_shadow_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kurokonton_a_perk
+}
+ac_event_retrieve_chest_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_water has_trait = ac_element_wind }
+}
+ac_event_frost_control_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_fire has_perk = ac_4_element_ice_j_perk }
+}
+ac_event_antidote_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_1_alchemy_d_perk has_perk = ac_4_element_fire_i_perk has_perk = ac_4_element_light_c_perk }
+}
+ac_event_beast_subdue_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_3_style_midorikatai_b_perk has_perk = ac_3_style_midorikatai_e_perk }
+}
+ac_event_beast_thunder_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_4_element_storm_b_perk
+}
+ac_event_mud_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_earth_a_perk has_trait = ac_element_water has_perk = ac_3_style_midorikatai_a_perk }
+}
+ac_event_mido_fire_rescue_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_i_perk
+}
+ac_event_aoyusumu_crowd_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_b_perk has_perk = ac_3_style_aoyusumu_e_perk
+}
+ac_event_aoyusumu_exorcism_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_g_perk
+}
+ac_event_aoyusumu_prayer_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_h_perk
+}
+ac_event_aoyusumu_meditation_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_b_perk NOT = { has_character_flag = ac_event_meditation_cooldown }
+}
+ac_event_aoyusumu_refuge_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_e_perk
+}
+ac_event_precognition_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_aoyusumu_i_perk
+}
+ac_event_kiihakai_barrier_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kiihakai_i_perk
+}
+ac_event_kiihakai_ward_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kiihakai_b_perk
+}
+ac_event_kiihakai_runes_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kiihakai_g_perk
+}
+ac_event_kiihakai_mending_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kiihakai_c_perk NOT = { has_character_flag = ac_chi_healing_cooldown }
+}
+ac_event_akakiru_disarm_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_akakiru_g_perk
+}
+ac_event_mido_subdue_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_midorikatai_e_perk
+}
+ac_event_shadow_escape_trigger = {
+	ac_event_practitioner_trigger = yes
+	has_perk = ac_3_style_kurokonton_a_perk
+}
+
+ac_event_captive_trigger = {
+    has_trait = ac_cultivator
+    age >= 16
+    is_alive = yes
+    is_imprisoned = yes
+    NOT = { has_trait = incapable }
+}
+ac_event_captive_purify_trigger = {
+    ac_event_captive_trigger = yes
+    OR = { has_perk = ac_4_element_light_c_perk has_perk = ac_4_element_fire_i_perk }
+}
+ac_event_captive_mido_trigger = { ac_event_captive_trigger = yes has_perk = ac_3_style_midorikatai_g_perk }
+ac_event_captive_shadow_trigger = { ac_event_captive_trigger = yes has_perk = ac_3_style_kurokonton_d_perk }
+ac_event_captive_earth_trigger = { ac_event_captive_trigger = yes has_perk = ac_4_element_earth_a_perk }

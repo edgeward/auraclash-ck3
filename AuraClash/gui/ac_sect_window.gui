@@ -1,0 +1,108 @@
+﻿window = {
+	name = "ac_sect_window"
+	layer = windows_layer
+	parentanchor = center
+	size = { 1120 760 }
+	allow_outside = no
+	using = Window_Movable
+	using = Window_Background
+	using = Window_Decoration
+	visible = "[GetScriptedGui('ac_sect_window').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	datacontext = "[GetPlayer]"
+	vbox = {
+		size = { 100% 100% }
+		using = Window_Margins
+		spacing = 12
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+			blockoverride "header_text" { text = "ac_sect_window_title" }
+			blockoverride "button_close" { onclick = "[GetScriptedGui('ac_sect_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+		}
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			spacing = 20
+			vbox = {
+				size = { 550 100% }
+				spacing = 10
+				widget = {
+					size = { 550 180 }
+					background = { texture = "gfx/interface/illustrations/event_scenes/ep3_medi_estate.dds" fittype = centercrop }
+				}
+				text_multi = { size = { 550 100 } text = "ac_sect_window_summary" }
+				text_multi = { size = { 550 60 } text = "[GetPlayer.Custom('AC_SectIdentity')]" }
+				text_multi = { size = { 550 150 } text = "ac_sect_window_buildings" }
+				button_standard = {
+					size = { 550 40 }
+					text = "ac_sect.0001.estate"
+					onclick = "[GetScriptedGui('ac_sect_window_estate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+				hbox = {
+					spacing = 8
+					button_standard = { size = { 270 40 } text = "ac_sect.0001.missions" onclick = "[GetScriptedGui('ac_sect_window_missions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+					button_standard = { size = { 270 40 } text = "ac_sect.0001.exchange" onclick = "[GetScriptedGui('ac_sect_window_exchange').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+				}
+			}
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				spacing = 8
+				text_single = { text = "ac_sect_roster" using = Font_Size_Medium }
+				scrollbox = {
+					size = { 480 300 }
+					blockoverride "scrollbox_content" {
+						vbox = {
+							datamodel = "[GetPlayer.MakeScope.Var('ac_sect').GetList('ac_members')]"
+							item = {
+								hbox = {
+									datacontext = "[Scope.Char]"
+									visible = "[Character.IsAlive]"
+									size = { 450 60 }
+									spacing = 8
+									portrait_head_small = { size = { 50 60 } }
+									vbox = {
+										text_single = { text = "[Character.GetUIName]" }
+										text_single = { text = "ac_sect_window_member_merit" }
+									}
+								}
+							}
+						}
+					}
+				}
+				text_single = { text = "ac_sect_window_allies" using = Font_Size_Medium }
+				scrollbox = {
+					size = { 480 85 }
+					blockoverride "scrollbox_content" {
+						vbox = {
+							datamodel = "[GetPlayer.MakeScope.Var('ac_sect').GetList('ac_allies')]"
+							item = {
+								button_standard = {
+									size = { 440 35 }
+									text = "[Scope.Var('ac_kingdom').Title.GetNameNoTier]"
+									onclick = "[GetScriptedGui('ac_sect_view_foreign_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ac_selected_sect', Scope.Self).End)]"
+								}
+							}
+						}
+					}
+				}
+				text_single = { text = "ac_sect_window_rivals" using = Font_Size_Medium }
+				scrollbox = {
+					size = { 480 85 }
+					blockoverride "scrollbox_content" {
+						vbox = {
+							datamodel = "[GetPlayer.MakeScope.Var('ac_sect').GetList('ac_rivals')]"
+							item = {
+								button_standard = {
+									size = { 440 35 }
+									text = "[Scope.Var('ac_kingdom').Title.GetNameNoTier]"
+									onclick = "[GetScriptedGui('ac_sect_view_foreign_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ac_selected_sect', Scope.Self).End)]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		button_standard = { size = { 550 40 } text = "ac_sect_back" onclick = "[GetScriptedGui('ac_sect_window_ledger').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+	}
+}

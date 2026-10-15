@@ -1,0 +1,285 @@
+﻿ac_sect_build_cultivation_hall_effect = {
+	if = {
+		limit = {
+			ac_sect_master_trigger = yes
+			var:ac_sect = { NOT = { has_variable = ac_building } var:ac_cultivation_hall < 3 exists = var:ac_estate_title.title_domicile }
+			var:ac_sect.var:ac_treasury >= ac_sect_cultivation_hall_cost
+			var:ac_sect.var:ac_estate_title.title_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+		}
+		var:ac_sect.var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_cultivation_hall = 0 }
+				construct_domicile_building = ac_sect_cultivation_hall_01
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_cultivation_hall = 1 }
+				construct_domicile_building = ac_sect_cultivation_hall_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_cultivation_hall = 2 }
+				construct_domicile_building = ac_sect_cultivation_hall_03
+			}
+		}
+	}
+}
+ac_sect_build_alchemy_pavilion_effect = {
+	if = {
+		limit = {
+			ac_sect_master_trigger = yes
+			var:ac_sect = { NOT = { has_variable = ac_building } var:ac_alchemy_pavilion < 3 exists = var:ac_estate_title.title_domicile }
+			var:ac_sect.var:ac_treasury >= ac_sect_alchemy_pavilion_cost
+			var:ac_sect.var:ac_estate_title.title_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+		}
+		var:ac_sect.var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_alchemy_pavilion = 0 }
+				construct_domicile_building = ac_sect_alchemy_pavilion_01
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_alchemy_pavilion = 1 }
+				construct_domicile_building = ac_sect_alchemy_pavilion_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_alchemy_pavilion = 2 }
+				construct_domicile_building = ac_sect_alchemy_pavilion_03
+			}
+		}
+	}
+}
+ac_sect_build_training_ground_effect = {
+	if = {
+		limit = {
+			ac_sect_master_trigger = yes
+			var:ac_sect = { NOT = { has_variable = ac_building } var:ac_training_ground < 3 exists = var:ac_estate_title.title_domicile }
+			var:ac_sect.var:ac_treasury >= ac_sect_training_ground_cost
+			var:ac_sect.var:ac_estate_title.title_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+		}
+		var:ac_sect.var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_training_ground = 0 }
+				construct_domicile_building = ac_sect_training_ground_01
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_training_ground = 1 }
+				construct_domicile_building = ac_sect_training_ground_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_training_ground = 2 }
+				construct_domicile_building = ac_sect_training_ground_03
+			}
+		}
+	}
+}
+ac_sect_build_scripture_library_effect = {
+	if = {
+		limit = {
+			ac_sect_master_trigger = yes
+			var:ac_sect = { NOT = { has_variable = ac_building } var:ac_scripture_library < 3 exists = var:ac_estate_title.title_domicile }
+			var:ac_sect.var:ac_treasury >= ac_sect_scripture_library_cost
+			var:ac_sect.var:ac_estate_title.title_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+		}
+		var:ac_sect.var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_scripture_library = 0 }
+				construct_domicile_building = ac_sect_scripture_library_01
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_scripture_library = 1 }
+				construct_domicile_building = ac_sect_scripture_library_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_scripture_library = 2 }
+				construct_domicile_building = ac_sect_scripture_library_03
+			}
+		}
+	}
+}
+ac_sect_build_spirit_garden_effect = {
+	if = {
+		limit = {
+			ac_sect_master_trigger = yes
+			var:ac_sect = { NOT = { has_variable = ac_building } var:ac_spirit_garden < 3 exists = var:ac_estate_title.title_domicile }
+			var:ac_sect.var:ac_treasury >= ac_sect_spirit_garden_cost
+			var:ac_sect.var:ac_estate_title.title_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+		}
+		var:ac_sect.var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_spirit_garden = 0 }
+				construct_domicile_building = ac_sect_spirit_garden_01
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_spirit_garden = 1 }
+				construct_domicile_building = ac_sect_spirit_garden_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_spirit_garden = 2 }
+				construct_domicile_building = ac_sect_spirit_garden_03
+			}
+		}
+	}
+}
+ac_sect_build_formation_hall_effect = {
+	if = {
+		limit = {
+			ac_sect_master_trigger = yes
+			var:ac_sect = { NOT = { has_variable = ac_building } var:ac_formation_hall < 3 exists = var:ac_estate_title.title_domicile }
+			var:ac_sect.var:ac_treasury >= ac_sect_formation_hall_cost
+			var:ac_sect.var:ac_estate_title.title_domicile = { NOT = { has_ongoing_domicile_construction = yes } }
+		}
+		var:ac_sect.var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_formation_hall = 0 }
+				construct_domicile_building = ac_sect_formation_hall_01
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_formation_hall = 1 }
+				construct_domicile_building = ac_sect_formation_hall_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_formation_hall = 2 }
+				construct_domicile_building = ac_sect_formation_hall_03
+			}
+		}
+	}
+}
+
+# Story scope; used only when creating/migrating a domicile.
+ac_sect_migrate_building_levels_effect = {
+	save_scope_as = ac_domicile_sect
+	var:ac_estate_title.title_domicile.owner = { set_variable = { name = ac_native_migration value = 1 } }
+	if = {
+		limit = { var:ac_estate_title = { exists = title_domicile } }
+		var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_cultivation_hall = 3 NOT = { has_domicile_building_or_higher = ac_sect_cultivation_hall_03 } }
+				add_domicile_building = ac_sect_cultivation_hall_03
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_cultivation_hall = 2 NOT = { has_domicile_building_or_higher = ac_sect_cultivation_hall_02 } }
+				add_domicile_building = ac_sect_cultivation_hall_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_cultivation_hall = 1 NOT = { has_domicile_building_or_higher = ac_sect_cultivation_hall_01 } }
+				add_domicile_building = ac_sect_cultivation_hall_01
+			}
+		}
+	}
+	if = {
+		limit = { var:ac_estate_title = { exists = title_domicile } }
+		var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_alchemy_pavilion = 3 NOT = { has_domicile_building_or_higher = ac_sect_alchemy_pavilion_03 } }
+				add_domicile_building = ac_sect_alchemy_pavilion_03
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_alchemy_pavilion = 2 NOT = { has_domicile_building_or_higher = ac_sect_alchemy_pavilion_02 } }
+				add_domicile_building = ac_sect_alchemy_pavilion_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_alchemy_pavilion = 1 NOT = { has_domicile_building_or_higher = ac_sect_alchemy_pavilion_01 } }
+				add_domicile_building = ac_sect_alchemy_pavilion_01
+			}
+		}
+	}
+	if = {
+		limit = { var:ac_estate_title = { exists = title_domicile } }
+		var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_training_ground = 3 NOT = { has_domicile_building_or_higher = ac_sect_training_ground_03 } }
+				add_domicile_building = ac_sect_training_ground_03
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_training_ground = 2 NOT = { has_domicile_building_or_higher = ac_sect_training_ground_02 } }
+				add_domicile_building = ac_sect_training_ground_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_training_ground = 1 NOT = { has_domicile_building_or_higher = ac_sect_training_ground_01 } }
+				add_domicile_building = ac_sect_training_ground_01
+			}
+		}
+	}
+	if = {
+		limit = { var:ac_estate_title = { exists = title_domicile } }
+		var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_scripture_library = 3 NOT = { has_domicile_building_or_higher = ac_sect_scripture_library_03 } }
+				add_domicile_building = ac_sect_scripture_library_03
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_scripture_library = 2 NOT = { has_domicile_building_or_higher = ac_sect_scripture_library_02 } }
+				add_domicile_building = ac_sect_scripture_library_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_scripture_library = 1 NOT = { has_domicile_building_or_higher = ac_sect_scripture_library_01 } }
+				add_domicile_building = ac_sect_scripture_library_01
+			}
+		}
+	}
+	if = {
+		limit = { var:ac_estate_title = { exists = title_domicile } }
+		var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_spirit_garden = 3 NOT = { has_domicile_building_or_higher = ac_sect_spirit_garden_03 } }
+				add_domicile_building = ac_sect_spirit_garden_03
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_spirit_garden = 2 NOT = { has_domicile_building_or_higher = ac_sect_spirit_garden_02 } }
+				add_domicile_building = ac_sect_spirit_garden_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_spirit_garden = 1 NOT = { has_domicile_building_or_higher = ac_sect_spirit_garden_01 } }
+				add_domicile_building = ac_sect_spirit_garden_01
+			}
+		}
+	}
+	if = {
+		limit = { var:ac_estate_title = { exists = title_domicile } }
+		var:ac_estate_title.title_domicile = {
+			if = {
+				limit = { var:ac_domicile_sect.var:ac_formation_hall = 3 NOT = { has_domicile_building_or_higher = ac_sect_formation_hall_03 } }
+				add_domicile_building = ac_sect_formation_hall_03
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_formation_hall = 2 NOT = { has_domicile_building_or_higher = ac_sect_formation_hall_02 } }
+				add_domicile_building = ac_sect_formation_hall_02
+			}
+			else_if = {
+				limit = { var:ac_domicile_sect.var:ac_formation_hall = 1 NOT = { has_domicile_building_or_higher = ac_sect_formation_hall_01 } }
+				add_domicile_building = ac_sect_formation_hall_01
+			}
+		}
+	}
+	var:ac_estate_title.title_domicile.owner = { remove_variable = ac_native_migration }
+}
+ac_sect_refresh_native_building_levels_effect = { save_scope_as = ac_domicile_sect
+	var:ac_estate_title.title_domicile = {
+		if = { limit = { has_domicile_building_or_higher = ac_sect_cultivation_hall_03 } var:ac_domicile_sect = { set_variable = { name = ac_cultivation_hall value = 3 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_cultivation_hall_02 } var:ac_domicile_sect = { set_variable = { name = ac_cultivation_hall value = 2 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_cultivation_hall_01 } var:ac_domicile_sect = { set_variable = { name = ac_cultivation_hall value = 1 } } }
+		else = { var:ac_domicile_sect = { set_variable = { name = ac_cultivation_hall value = 0 } } } }
+	var:ac_estate_title.title_domicile = {
+		if = { limit = { has_domicile_building_or_higher = ac_sect_alchemy_pavilion_03 } var:ac_domicile_sect = { set_variable = { name = ac_alchemy_pavilion value = 3 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_alchemy_pavilion_02 } var:ac_domicile_sect = { set_variable = { name = ac_alchemy_pavilion value = 2 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_alchemy_pavilion_01 } var:ac_domicile_sect = { set_variable = { name = ac_alchemy_pavilion value = 1 } } }
+		else = { var:ac_domicile_sect = { set_variable = { name = ac_alchemy_pavilion value = 0 } } } }
+	var:ac_estate_title.title_domicile = {
+		if = { limit = { has_domicile_building_or_higher = ac_sect_training_ground_03 } var:ac_domicile_sect = { set_variable = { name = ac_training_ground value = 3 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_training_ground_02 } var:ac_domicile_sect = { set_variable = { name = ac_training_ground value = 2 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_training_ground_01 } var:ac_domicile_sect = { set_variable = { name = ac_training_ground value = 1 } } }
+		else = { var:ac_domicile_sect = { set_variable = { name = ac_training_ground value = 0 } } } }
+	var:ac_estate_title.title_domicile = {
+		if = { limit = { has_domicile_building_or_higher = ac_sect_scripture_library_03 } var:ac_domicile_sect = { set_variable = { name = ac_scripture_library value = 3 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_scripture_library_02 } var:ac_domicile_sect = { set_variable = { name = ac_scripture_library value = 2 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_scripture_library_01 } var:ac_domicile_sect = { set_variable = { name = ac_scripture_library value = 1 } } }
+		else = { var:ac_domicile_sect = { set_variable = { name = ac_scripture_library value = 0 } } } }
+	var:ac_estate_title.title_domicile = {
+		if = { limit = { has_domicile_building_or_higher = ac_sect_spirit_garden_03 } var:ac_domicile_sect = { set_variable = { name = ac_spirit_garden value = 3 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_spirit_garden_02 } var:ac_domicile_sect = { set_variable = { name = ac_spirit_garden value = 2 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_spirit_garden_01 } var:ac_domicile_sect = { set_variable = { name = ac_spirit_garden value = 1 } } }
+		else = { var:ac_domicile_sect = { set_variable = { name = ac_spirit_garden value = 0 } } } }
+	var:ac_estate_title.title_domicile = {
+		if = { limit = { has_domicile_building_or_higher = ac_sect_formation_hall_03 } var:ac_domicile_sect = { set_variable = { name = ac_formation_hall value = 3 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_formation_hall_02 } var:ac_domicile_sect = { set_variable = { name = ac_formation_hall value = 2 } } }
+		else_if = { limit = { has_domicile_building_or_higher = ac_sect_formation_hall_01 } var:ac_domicile_sect = { set_variable = { name = ac_formation_hall value = 1 } } }
+		else = { var:ac_domicile_sect = { set_variable = { name = ac_formation_hall value = 0 } } } }
+}

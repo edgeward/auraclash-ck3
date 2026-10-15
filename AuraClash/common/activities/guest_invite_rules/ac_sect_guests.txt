@@ -1,0 +1,25 @@
+﻿ac_sect_invite_members = {
+	effect = {
+		ac_sect_save_activity_home_effect = yes
+		scope:ac_activity_home = { every_in_list = { variable = ac_members limit = { is_alive = yes } add_to_list = characters } }
+	}
+}
+ac_sect_invite_allies = {
+	effect = {
+		ac_sect_save_activity_home_effect = yes
+		scope:ac_activity_home = {
+			every_in_list = {
+				variable = ac_allies
+				every_in_list = { variable = ac_members limit = { is_alive = yes } add_to_list = characters }
+			}
+		}
+	}
+}
+ac_sect_invite_candidates = {
+	effect = {
+		ac_sect_save_activity_home_effect = yes
+		scope:ac_activity_home.var:ac_headquarters.county.holder = {
+			every_courtier_or_guest = { limit = { ac_sect_interested_candidate_trigger = yes } add_to_list = characters }
+		}
+	}
+}

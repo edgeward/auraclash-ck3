@@ -1,0 +1,41 @@
+﻿widget = {
+ name = "ac_sect_hud"
+ layer = bottom
+ parentanchor = bottom|left
+ position = { 235 -153 }
+ size = { 120 58 }
+ visible = "[And(GetScriptedGui('ac_sect_hud_estate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End), And(IsDefaultGUIMode, Not(IsPauseMenuShown)))]"
+ hbox = {
+  spacing = 4
+  button_round = {
+   name = "ac_sect_domicile_shortcut"
+   size = { 56 56 }
+   using = tooltip_ne
+   tooltip = "ac_sect_hud_estate_tt"
+   onclick = "[GetScriptedGui('ac_sect_hud_estate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+   icon_round_button_base = {}
+   button_icon = { parentanchor = center size = { 40 40 } alwaystransparent = yes texture = "gfx/interface/icons/flat_icons/domicile_japan.dds" }
+   widget = {
+    size = { 100% 100% }
+    alwaystransparent = yes
+    datacontext = "[GetPlayer.MakeScope.Var('ac_sect').Story.MakeScope.Var('ac_estate_domicile').Domicile]"
+    progresspie = {
+     visible = "[Domicile.IsConstructing]"
+     size = { 48 48 } parentanchor = center widgetanchor = center
+     texture = "gfx/interface/progressbars/action_progress_thin.dds"
+     framesize = { 128 128 } frame = 2
+     value = "[Domicile.GetConstructionProgress]" min = 0 max = 1
+    }
+   }
+  }
+  button_round = {
+   name = "ac_sect_contract_shortcut"
+   size = { 56 56 }
+   using = tooltip_ne
+   tooltip = "ac_sect_hud_contracts_tt"
+   onclick = "[GetScriptedGui('ac_sect_hud_contracts').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+   icon_round_button_base = {}
+   button_icon = { parentanchor = center size = { 36 36 } alwaystransparent = yes texture = "gfx/interface/icons/traits/ac_cultivator.dds" }
+  }
+ }
+}

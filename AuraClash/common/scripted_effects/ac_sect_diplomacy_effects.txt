@@ -1,0 +1,171 @@
+﻿# Character scope. Diplomacy is stored between story scopes, never between rulers.
+ac_sect_find_neighbor_effect = {
+	clear_saved_scope = ac_neighbor
+	random_in_global_list = {
+		variable = ac_sects
+		limit = {
+			this != root.var:ac_sect
+			story_owner = { is_alive = yes in_diplomatic_range = root }
+		}
+		save_scope_as = ac_neighbor
+		save_scope_as = ac_selected_sect
+	}
+	if = {
+		limit = { exists = scope:ac_neighbor }
+		set_variable = { name = ac_viewed_sect value = scope:ac_neighbor }
+		trigger_event = ac_sect.0003
+	}
+	else = { trigger_event = ac_sect.0001 }
+}
+ac_sect_alliance_effect = {
+	scope:actor.var:ac_sect = {
+		add_to_variable_list = { name = ac_allies target = scope:recipient.var:ac_sect }
+		remove_list_variable = { name = ac_rivals target = scope:recipient.var:ac_sect }
+	}
+	scope:recipient.var:ac_sect = {
+		add_to_variable_list = { name = ac_allies target = scope:actor.var:ac_sect }
+		remove_list_variable = { name = ac_rivals target = scope:actor.var:ac_sect }
+	}
+}
+ac_sect_end_alliance_effect = {
+	scope:actor.var:ac_sect = { remove_list_variable = { name = ac_allies target = scope:recipient.var:ac_sect } }
+	scope:recipient.var:ac_sect = { remove_list_variable = { name = ac_allies target = scope:actor.var:ac_sect } }
+}
+ac_sect_rivalry_effect = {
+	ac_sect_end_alliance_effect = yes
+	scope:actor.var:ac_sect = { add_to_variable_list = { name = ac_rivals target = scope:recipient.var:ac_sect } }
+	scope:recipient.var:ac_sect = { add_to_variable_list = { name = ac_rivals target = scope:actor.var:ac_sect } }
+}
+ac_sect_start_battle_effect = {
+	scope:actor.var:ac_sect = {
+		set_variable = { name = ac_opponent value = scope:recipient.var:ac_sect }
+		set_variable = { name = ac_attacking value = 1 }
+		set_variable = { name = ac_battle_timer value = 1 days = 30 }
+		set_variable = { name = ac_battle_cooldown value = 1 years = 2 }
+	}
+	scope:recipient.var:ac_sect = {
+		set_variable = { name = ac_opponent value = scope:actor.var:ac_sect }
+		set_variable = { name = ac_battle_cooldown value = 1 years = 2 }
+	}
+}
+# Story scope. Only available disciples contribute; nobody is sent into the
+# separate single-combat system. An ally of both sides remains neutral.
+ac_sect_muster_effect = {
+	save_scope_as = ac_mustered_sect
+	set_variable = { name = ac_battle_power value = 10 }
+	change_variable = { name = ac_battle_power add = var:ac_training_ground }
+	change_variable = { name = ac_battle_power add = var:ac_formation_hall }
+	if = { limit = { has_variable = ac_joint_drill } change_variable = { name = ac_battle_power add = 20 } }
+	every_in_list = {
+		variable = ac_members
+		limit = { ac_sect_available_trigger = yes is_available = yes var:ac_sect = scope:ac_mustered_sect }
+		save_scope_as = ac_fighter
+		scope:ac_mustered_sect = { change_variable = { name = ac_battle_power add = scope:ac_fighter.prowess } }
+	}
+	every_in_list = {
+		variable = ac_allies
+		limit = {
+			NOT = { has_variable = ac_opponent }
+			NOT = { is_target_in_variable_list = { name = ac_allies target = scope:ac_mustered_sect.var:ac_opponent } }
+			exists = story_owner
+		}
+		scope:ac_mustered_sect = { change_variable = { name = ac_battle_power add = 25 } }
+	}
+}
+ac_sect_resolve_battle_effect = {
+	if = {
+		limit = { has_variable = ac_attacking has_variable = ac_opponent NOT = { has_variable = ac_battle_timer } }
+		save_scope_as = ac_attacker_sect
+		var:ac_opponent = { save_scope_as = ac_defender_sect }
+		if = {
+			limit = { scope:ac_defender_sect.var:ac_opponent ?= this }
+			ac_sect_muster_effect = yes
+			scope:ac_defender_sect = { ac_sect_muster_effect = yes }
+			random_list = {
+				0 = {
+					modifier = { add = var:ac_battle_power }
+					save_scope_as = ac_victorious_sect
+					scope:ac_defender_sect = { save_scope_as = ac_defeated_sect }
+					ac_sect_battle_outcome_effect = yes
+				}
+				0 = {
+					modifier = { add = scope:ac_defender_sect.var:ac_battle_power }
+					save_scope_as = ac_defeated_sect
+					scope:ac_defender_sect = { save_scope_as = ac_victorious_sect }
+					ac_sect_battle_outcome_effect = yes
+				}
+			}
+		}
+		remove_variable = ac_attacking
+		remove_variable = ac_opponent
+		remove_variable = ac_battle_power
+		scope:ac_defender_sect = { remove_variable = ac_opponent remove_variable = ac_battle_power }
+	}
+}
+ac_sect_battle_outcome_effect = {
+	scope:ac_defeated_sect = {
+		set_variable = { name = ac_battle_loot value = var:ac_treasury }
+		if = { limit = { var:ac_battle_loot > 75 } set_variable = { name = ac_battle_loot value = 75 } }
+		change_variable = { name = ac_treasury subtract = var:ac_battle_loot }
+		every_in_list = {
+			variable = ac_members
+			limit = { ac_sect_available_trigger = yes is_available = yes }
+			add_stress = 10
+			random = { chance = 20 increase_wounds_no_death_effect = { REASON = fight } }
+		}
+	}
+	scope:ac_victorious_sect = {
+		change_variable = { name = ac_treasury add = scope:ac_defeated_sect.var:ac_battle_loot }
+		every_in_list = {
+			variable = ac_members
+			limit = { ac_sect_available_trigger = yes is_available = yes }
+			ac_sect_award_contribution_effect = { VALUE = 15 }
+			add_trait_xp = { trait = ac_cultivator track = ac_core_power value = 2 }
+			random = { chance = 5 increase_wounds_no_death_effect = { REASON = fight } }
+		}
+		story_owner = { add_prestige = 100 if = { limit = { is_ai = no } trigger_event = ac_sect.0030 } }
+	}
+	scope:ac_defeated_sect.story_owner = {
+		add_prestige = -50
+		if = { limit = { is_ai = no } trigger_event = ac_sect.0030 }
+	}
+}
+
+# Only nearby NPC-led sects choose relationships automatically. No global nested
+# character scans. Player masters retain control over their own diplomacy.
+ac_sect_ai_diplomacy_effect = {
+	if = {
+		limit = { story_owner = { is_ai = yes } NOT = { has_variable = ac_opponent } }
+		story_owner = { save_scope_as = actor }
+		clear_saved_scope = recipient
+		var:ac_kingdom = {
+			random_title_to_title_neighboring_and_across_water_kingdom = {
+				limit = {
+					has_variable = ac_kingdom_sect
+					var:ac_kingdom_sect.story_owner = { is_ai = yes }
+					var:ac_kingdom_sect = { NOT = { has_variable = ac_opponent } }
+				}
+				var:ac_kingdom_sect.story_owner = { save_scope_as = recipient }
+			}
+		}
+		if = {
+			limit = { exists = scope:recipient }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = ac_rivals target = scope:recipient.var:ac_sect }
+					NOT = { has_variable = ac_battle_cooldown }
+					scope:recipient.var:ac_sect = { NOT = { has_variable = ac_battle_cooldown } }
+				}
+				random = { chance = 10 ac_sect_start_battle_effect = yes }
+			}
+			else_if = {
+				limit = { NOT = { is_target_in_variable_list = { name = ac_allies target = scope:recipient.var:ac_sect } } }
+				random_list = {
+					15 = { ac_sect_alliance_effect = yes }
+					10 = { ac_sect_rivalry_effect = yes }
+					75 = { }
+				}
+			}
+		}
+	}
+}

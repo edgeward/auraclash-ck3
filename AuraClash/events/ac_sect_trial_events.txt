@@ -1,0 +1,93 @@
+﻿namespace = ac_sect_trial
+ac_sect_trial.0001 = {
+	type = character_event
+	title = ac_sect_trial.0001.t
+	desc = ac_sect_trial.0001.desc
+	theme = learning
+	trigger = { has_variable = ac_sect_trial_activity }
+	option = {
+		name = ac_sect_trial.0001.study
+		change_variable = { name = ac_sect_trial_score add = 10 }
+		add_stress = 10
+	}
+	option = {
+		name = ac_sect_trial.0001.insight
+		trigger = { learning >= 15 }
+		change_variable = { name = ac_sect_trial_score add = 15 }
+	}
+	option = {
+		name = ac_sect_trial.0001.rest
+		change_variable = { name = ac_sect_trial_score add = 3 }
+		add_stress = -10
+	}
+}
+ac_sect_trial.0002 = {
+	type = character_event
+	title = ac_sect_trial.0002.t
+	desc = ac_sect_trial.0002.desc
+	theme = martial
+	trigger = { has_variable = ac_sect_trial_activity }
+	option = { name = ac_sect_trial.0002.form change_variable = { name = ac_sect_trial_score add = 10 } add_stress = 10 }
+	option = {
+		name = ac_sect_trial.0002.mastery
+		trigger = { OR = { prowess >= 15 ac_has_martial_style_trigger = yes } }
+		change_variable = { name = ac_sect_trial_score add = 15 }
+	}
+	option = { name = ac_sect_trial.0002.safe change_variable = { name = ac_sect_trial_score add = 5 } }
+}
+ac_sect_trial.0003 = {
+	type = character_event
+	title = ac_sect_trial.0003.t
+	desc = ac_sect_trial.0003.desc
+	theme = learning
+	option = { name = ac_sect_trial.accept }
+}
+ac_sect_trial.0004 = {
+	type = character_event
+	title = ac_sect_trial.0004.t
+	desc = ac_sect_trial.0004.desc
+	theme = learning
+	option = { name = ac_sect_trial.accept }
+}
+ac_sect_trial.0005 = {
+	type = character_event
+	title = ac_sect_trial.0005.t
+	desc = ac_sect_trial.0005.desc
+	theme = learning
+	option = { name = ac_sect_trial.again }
+}
+ac_sect_trial.0010 = {
+	type = character_event
+	title = ac_sect_trial.0010.t
+	desc = ac_sect_trial.0010.desc
+	theme = martial
+	option = { name = ac_sect_trial.0010.observe add_stress = -10 }
+	option = { name = ac_sect_trial.0010.teach add_prestige = 20 }
+}
+
+# Recruitment notices lead to the native invitation/travel screen. They do not
+# accept an invitation, teleport the player, or plan a new activity.
+ac_sect_trial.0020 = {
+	type = character_event
+	title = ac_sect_trial.0020.t
+	desc = ac_sect_trial.0020.desc
+	theme = learning
+	trigger = {
+		exists = scope:ac_invited_trial
+		OR = { has_character_flag = ac_sect_recruitment_interest ac_sect_member_trigger = yes }
+	}
+	left_portrait = { character = scope:ac_invited_trial.var:ac_trial_sect.story_owner animation = personality_honorable }
+	option = {
+		name = ac_sect_trial.0020.review
+		trigger = { can_join_activity = scope:ac_invited_trial can_arrive_in_time_to_activity_minimum = scope:ac_invited_trial }
+		scope:ac_invited_trial = { open_view_data = { view = activity_list_detail_invite_window player = prev } }
+	}
+	option = { name = ac_sect_trial.0020.wait }
+}
+
+ac_sect_trial.0100 = {
+	type = character_event
+	hidden = yes
+	trigger = { exists = scope:activity.var:ac_trial_sect.story_owner }
+	immediate = { scope:activity = { ac_sect_install_trial_master_effect = yes } }
+}

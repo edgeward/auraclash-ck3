@@ -1,0 +1,146 @@
+﻿ac_sect_member_trigger = {
+	has_trait = ac_cultivator
+	has_variable = ac_sect
+	exists = var:ac_sect.story_owner
+	var:ac_sect = { has_variable = ac_headquarters }
+}
+ac_sect_master_trigger = {
+	ac_sect_member_trigger = yes
+	var:ac_sect.story_owner = this
+}
+ac_sect_available_trigger = {
+	is_alive = yes
+	is_adult = yes
+	is_imprisoned = no
+	NOT = { has_trait = incapable }
+}
+ac_sect_mission_ready_trigger = {
+	is_available = yes
+	NOT = { is_travelling = yes }
+	num_taken_task_contracts < 1
+	ac_sect_member_trigger = yes
+	ac_sect_available_trigger = yes
+	NOT = { has_variable = ac_sect_mission }
+	NOT = { has_character_flag = ac_sect_mission_cooldown }
+	NOT = { has_variable = ac_sect_trial_activity }
+}
+ac_sect_promotion_ready_trigger = {
+	ac_sect_member_trigger = yes
+	ac_sect_available_trigger = yes
+	has_trait = ac_sect_lower_disciple
+	var:ac_sect_contribution >= ac_sect_promotion_cost
+	var:ac_sect = { var:ac_upper_count < ac_sect_upper_capacity }
+	NOT = { has_character_flag = ac_sect_trial_cooldown }
+	NOT = { has_variable = ac_sect_trial_activity }
+}
+ac_sect_candidate_trigger = {
+	ac_sect_available_trigger = yes
+	NOT = { has_variable = ac_sect }
+	NOT = { has_character_flag = ac_sect_departure_cooldown }
+	NOT = { has_character_flag = ac_sect_trial_cooldown }
+}
+ac_sect_interested_candidate_trigger = {
+	ac_sect_candidate_trigger = yes
+	OR = { is_ai = yes has_character_flag = ac_sect_recruitment_interest }
+}
+# Society scope. A master opens trials when recruitment or requested promotion
+# can actually award a place. A rejected AI plan can retry after 90 days.
+ac_sect_can_plan_trial_trigger = {
+	story_owner = { ac_sect_available_trigger = yes is_available = yes }
+	var:ac_treasury >= 50
+	NOT = { has_variable = ac_trial_cooldown }
+	NOT = { has_variable = ac_activity_plan }
+	NOT = { exists = var:ac_current_activity }
+	OR = {
+		var:ac_lower_count < ac_sect_lower_capacity
+		AND = {
+			var:ac_upper_count < ac_sect_upper_capacity
+			any_in_list = { variable = ac_members ac_sect_promotion_ready_trigger = yes has_variable = ac_sect_promotion_requested }
+		}
+	}
+}
+# Character scope. Only a player master or the master's pending AI organizer can
+# reach the hosting planner. Applicants and disciples cannot host examinations.
+ac_sect_trial_planner_trigger = {
+	trigger_if = {
+		limit = { is_ai = no }
+		ac_sect_master_trigger = yes
+		trigger_if = { limit = { has_variable = ac_sect } var:ac_sect = { ac_sect_can_plan_trial_trigger = yes } }
+	}
+	trigger_else = {
+		has_variable = ac_sect_patronage
+		trigger_if = {
+			limit = { has_variable = ac_sect_patronage }
+			var:ac_sect_patronage = {
+				var:ac_activity_plan ?= flag:activity_ac_sect_trials
+				var:ac_activity_organizer ?= prev
+				NOT = { has_variable = ac_trial_cooldown }
+				NOT = { exists = var:ac_current_activity }
+				story_owner = { ac_sect_available_trigger = yes }
+			}
+		}
+	}
+}
+# Character scope, ac_sponsored_sect supplied by the society.
+ac_sect_activity_ruler_trigger = {
+	is_ai = yes
+	is_landed = yes
+	highest_held_title_tier >= tier_county
+	is_available = yes
+	ac_sect_available_trigger = yes
+	trigger_if = { limit = { has_variable = ac_sect_patronage } var:ac_sect_patronage = scope:ac_sponsored_sect }
+	trigger_if = { limit = { has_variable = ac_sect } var:ac_sect = scope:ac_sponsored_sect }
+}
+# Candidate character scope, host supplied by the native guest check.
+ac_sect_trial_candidate_for_host_trigger = {
+	ac_sect_interested_candidate_trigger = yes
+	in_diplomatic_range = scope:host
+	trigger_if = {
+		limit = { has_variable = ac_sect_application }
+		trigger_if = { limit = { scope:host = { has_variable = ac_sect_patronage } } var:ac_sect_application ?= scope:host.var:ac_sect_patronage }
+		trigger_else = { var:ac_sect_application ?= scope:host.var:ac_sect }
+	}
+}
+# This is the only geographic policy: replace it when the custom map arrives.
+ac_sect_kingdom_eligible_trigger = {
+	any_de_jure_county = { always = yes }
+	exists = title_capital_county.holder
+	exists = title_capital_county.title_province
+	title_capital_county.title_province = { NOT = { has_variable = ac_province_sect } }
+	NOT = { has_variable = ac_kingdom_sect }
+}
+
+# Native AI activity planning requires a ruler. Patronage is a temporary hosting
+# assignment; it does not grant membership or ownership of the society.
+ac_sect_host_treasury_trigger = {
+	trigger_if = { limit = { has_variable = ac_sect_patronage } var:ac_sect_patronage.var:ac_treasury >= $COST$ }
+	trigger_else_if = { limit = { has_variable = ac_sect } var:ac_sect.var:ac_treasury >= $COST$ }
+	trigger_else = { var:ac_sect_application.var:ac_treasury >= $COST$ }
+}
+ac_sect_host_allies_trigger = {
+	trigger_if = { limit = { has_variable = ac_sect_patronage } var:ac_sect_patronage = { any_in_list = { variable = ac_allies exists = story_owner } } }
+	trigger_else = { var:ac_sect = { any_in_list = { variable = ac_allies exists = story_owner } } }
+}
+ac_sect_activity_location_trigger = {
+	trigger_if = { limit = { scope:host = { has_variable = ac_sect_patronage } } var:ac_province_sect ?= scope:host.var:ac_sect_patronage }
+	trigger_else_if = { limit = { scope:host = { has_variable = ac_sect } } var:ac_province_sect ?= scope:host.var:ac_sect }
+	trigger_else = { var:ac_province_sect ?= scope:host.var:ac_sect_application }
+}
+ac_sect_activity_member_trigger = {
+	trigger_if = { limit = { scope:host = { has_variable = ac_sect_patronage } } var:ac_sect ?= scope:host.var:ac_sect_patronage }
+	trigger_else_if = { limit = { scope:host = { has_variable = ac_sect } } var:ac_sect ?= scope:host.var:ac_sect }
+	trigger_else = { var:ac_sect ?= scope:host.var:ac_sect_application }
+}
+ac_sect_activity_member_or_ally_trigger = {
+	OR = {
+		ac_sect_activity_member_trigger = yes
+		AND = {
+			scope:host = { has_variable = ac_sect_patronage }
+			scope:host.var:ac_sect_patronage = { is_target_in_variable_list = { name = ac_allies target = prev.var:ac_sect } }
+		}
+		AND = {
+			scope:host = { NOT = { has_variable = ac_sect_patronage } has_variable = ac_sect }
+			scope:host.var:ac_sect = { is_target_in_variable_list = { name = ac_allies target = prev.var:ac_sect } }
+		}
+	}
+}

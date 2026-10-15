@@ -1,0 +1,7 @@
+﻿ac_sect_cultivation_hall_cost = { value = var:ac_sect.var:ac_cultivation_hall add = 1 multiply = 100 }
+ac_sect_alchemy_pavilion_cost = { value = var:ac_sect.var:ac_alchemy_pavilion add = 1 multiply = 100 }
+ac_sect_training_ground_cost = { value = var:ac_sect.var:ac_training_ground add = 1 multiply = 100 }
+ac_sect_scripture_library_cost = { value = var:ac_sect.var:ac_scripture_library add = 1 multiply = 100 }
+ac_sect_spirit_garden_cost = { value = var:ac_sect.var:ac_spirit_garden add = 1 multiply = 100 }
+ac_sect_formation_hall_cost = { value = var:ac_sect.var:ac_formation_hall add = 1 multiply = 100 }
+ac_sect_annual_study_xp = { value = var:ac_sect.var:ac_cultivation_hall add = var:ac_sect.var:ac_scripture_library multiply = 20 }

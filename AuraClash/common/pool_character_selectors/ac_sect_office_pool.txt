@@ -1,0 +1,19 @@
+﻿ac_sect_office_pool = {
+	# Native fallback only. The society's owner-death handler selects from
+	# the entire membership, including landed disciples outside the court.
+	valid_character = {
+		ac_sect_member_trigger = yes
+		ac_sect_available_trigger = yes
+		trigger_if = { limit = { exists = scope:base.var:ac_sect } var:ac_sect = scope:base.var:ac_sect }
+		trigger_else = { always = no }
+	}
+	character_score = {
+		base = 1
+		compare_modifier = { value = ac_sect_successor_score }
+		modifier = { add = 1000000 has_trait = ac_sect_upper_disciple }
+	}
+	config = { background = commander age = { 25 60 } }
+	court = yes
+	gender = random
+	selection_count = 1
+}

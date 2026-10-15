@@ -1,0 +1,106 @@
+﻿ac_sect_estate = {
+	# Title transfer/death processing can briefly run before the rank trait
+	# changes. Access is controlled by the sect title, not a house-head check.
+	allowed_for_character = { always = yes }
+	illustration = "gfx/interface/illustrations/event_scenes/tgp_asia_estate.dds"
+	icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+	map_pin_texture = "gfx/interface/icons/map_icons/map_icon_japanese_manor.dds"
+	map_pin_anchor = up
+	map_pin_lobby = no
+	can_move_manually = no
+	move_with_realm_capital = no
+	provisions = no
+	travel = no
+	base_external_slots = 5
+	construction_soundeffect = "event:/SFX/UI/Unique/Construction/Building/sfx_ui_unique_construction_building_generic"
+	domicile_building_slots = {
+		main_slot = {
+			slot_type = main
+			position = { 37% 1% } size = { 27% 40% }
+			empty_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/yurt_empty_slot_01.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/yurt_empty_slot_01_mask.png"
+			}
+			construction_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/estate_building_construction_chinese.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_construction_chinese_mask.png"
+			}
+		}
+		alchemy_plot = {
+			slot_type = external
+			position = { 12% 15% } size = { 24% 36% }
+			empty_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/yurt_empty_slot_01.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/yurt_empty_slot_01_mask.png"
+			}
+			construction_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/estate_building_construction_chinese.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_construction_chinese_mask.png"
+			}
+		}
+		library_plot = {
+			slot_type = external
+			position = { 61% 10% } size = { 24% 36% }
+			empty_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/yurt_empty_slot_01.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/yurt_empty_slot_01_mask.png"
+			}
+			construction_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/estate_building_construction_chinese.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_construction_chinese_mask.png"
+			}
+		}
+		training_plot = {
+			slot_type = external
+			position = { 17% 39% } size = { 24% 36% }
+			empty_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/yurt_empty_slot_01.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/yurt_empty_slot_01_mask.png"
+			}
+			construction_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/estate_building_construction_chinese.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_construction_chinese_mask.png"
+			}
+		}
+		formation_plot = {
+			slot_type = external
+			position = { 51% 35% } size = { 24% 36% }
+			empty_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/yurt_empty_slot_01.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/yurt_empty_slot_01_mask.png"
+			}
+			construction_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/estate_building_construction_chinese.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_construction_chinese_mask.png"
+			}
+		}
+		garden_plot = {
+			slot_type = external
+			position = { 31% 61% } size = { 24% 32% }
+			empty_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/yurt_empty_slot_01.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/yurt_empty_slot_01_mask.png"
+			}
+			construction_slot_asset = {
+				icon = "gfx/interface/icons/flat_icons/plus.dds"
+				texture = "gfx/interface/window_domiciles/estate_building_construction_chinese.dds"
+				intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_construction_chinese_mask.png"
+			}
+		}
+	}
+	domicile_asset = {
+		background = "gfx/interface/window_domiciles/ac_sect_landscape.dds"
+		ambience = "event:/DLC/EP3/SFX/Ambience/2D/Domicile/ep3_amb_2d_domicile_green_lands"
+	}
+}

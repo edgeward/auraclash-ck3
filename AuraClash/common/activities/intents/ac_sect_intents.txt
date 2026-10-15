@@ -1,0 +1,6 @@
+﻿ac_sect_study_intent = {
+	icon = reduce_stress_intent
+	auto_complete = yes
+	ai_will_do = { value = 100 }
+	scripted_animation = { animation = thinking }
+}

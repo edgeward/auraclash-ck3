@@ -13,7 +13,10 @@ ac_chi_healing_interaction = {
 	}
 
 	is_valid_showing_failures_only = {
-		scope:actor = { is_imprisoned = no }
+		scope:actor = {
+			is_imprisoned = no
+			NOT = { has_character_flag = ac_chi_healing_cooldown }
+		}
 		scope:recipient = {
 			is_alive = yes
 			custom_tooltip = {
@@ -24,6 +27,7 @@ ac_chi_healing_interaction = {
 	}
 
 	on_accept = {
+		scope:actor = { ac_event_chi_healing_cooldown_effect = yes }
 		scope:recipient = {
 			send_interface_toast = {
 				type = event_toast_effect_good

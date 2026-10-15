@@ -1,0 +1,76 @@
+﻿# Character host -> saved society scope. Valid before activity on_start.
+ac_sect_save_activity_home_effect = {
+	if = { limit = { has_variable = ac_sect_patronage } var:ac_sect_patronage = { save_scope_as = ac_activity_home } }
+	else_if = { limit = { has_variable = ac_sect } var:ac_sect = { save_scope_as = ac_activity_home } }
+	else = { var:ac_sect_application = { save_scope_as = ac_activity_home } }
+}
+ac_sect_begin_trial_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = ac_sect_trial_activity }
+			OR = {
+				ac_sect_interested_candidate_trigger = yes
+				AND = {
+					var:ac_sect = scope:activity.var:ac_trial_sect
+					ac_sect_promotion_ready_trigger = yes
+					has_variable = ac_sect_promotion_requested
+				}
+			}
+		}
+		set_variable = { name = ac_sect_trial_activity value = scope:activity }
+		set_variable = { name = ac_sect_trial_home value = scope:activity.var:ac_trial_sect }
+		set_variable = { name = ac_sect_trial_score value = learning }
+		if = {
+			limit = { has_trait = ac_sect_lower_disciple }
+			change_variable = { name = ac_sect_contribution subtract = ac_sect_promotion_cost }
+			set_variable = { name = ac_sect_trial_paid value = 1 }
+		}
+		if = { limit = { has_trait = diligent } change_variable = { name = ac_sect_trial_score add = 8 } }
+		trigger_event = ac_sect_trial.0001
+	}
+}
+ac_sect_clear_trial_effect = {
+	remove_variable = ac_sect_trial_activity
+	remove_variable = ac_sect_trial_home
+	remove_variable = ac_sect_trial_paid
+	remove_variable = ac_sect_trial_score
+	remove_variable = ac_sect_promotion_requested
+}
+ac_sect_refund_trial_effect = {
+	if = {
+		limit = { has_variable = ac_sect_trial_paid ac_sect_member_trigger = yes var:ac_sect = var:ac_sect_trial_home }
+		change_variable = { name = ac_sect_contribution add = ac_sect_promotion_cost }
+	}
+	ac_sect_clear_trial_effect = yes
+}
+ac_sect_complete_trial_effect = {
+	if = {
+		limit = { var:ac_sect_trial_activity ?= scope:activity }
+		var:ac_sect_trial_home = { save_scope_as = ac_join_sect ac_sect_recount_effect = yes }
+		if = {
+			limit = { has_variable = ac_sect_trial_paid }
+			if = {
+				limit = { var:ac_sect ?= scope:ac_join_sect has_trait = ac_sect_lower_disciple scope:ac_join_sect.var:ac_upper_count < ac_sect_upper_capacity }
+				if = {
+					limit = { var:ac_sect_trial_score >= 55 }
+					remove_trait = ac_sect_lower_disciple
+					add_trait = ac_sect_upper_disciple
+					ac_sect_teach_second_element_effect = yes
+					trigger_event = ac_sect_trial.0004
+				}
+				else = { trigger_event = ac_sect_trial.0005 }
+				remove_variable = ac_sect_trial_paid
+			}
+			else = { ac_sect_refund_trial_effect = yes }
+		}
+		else_if = {
+			limit = { ac_sect_candidate_trigger = yes var:ac_sect_trial_score >= 40 scope:ac_join_sect.var:ac_lower_count < ac_sect_lower_capacity }
+			ac_sect_join_effect = yes
+			trigger_event = ac_sect_trial.0003
+		}
+		else = { trigger_event = ac_sect_trial.0005 }
+		scope:ac_join_sect = { ac_sect_recount_effect = yes }
+		add_character_flag = { flag = ac_sect_trial_cooldown years = 1 }
+		ac_sect_clear_trial_effect = yes
+	}
+}

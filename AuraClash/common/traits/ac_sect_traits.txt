@@ -1,0 +1,17 @@
+﻿ac_sect_master = {
+	icon = ac_foundation_dragon.dds
+	opposites = { ac_sect_upper_disciple ac_sect_lower_disciple }
+	shown_in_ruler_designer = no
+	monthly_prestige = 0.3
+}
+ac_sect_upper_disciple = {
+	icon = ac_foundation_crane.dds
+	opposites = { ac_sect_master ac_sect_lower_disciple }
+	shown_in_ruler_designer = no
+	learning = 1
+}
+ac_sect_lower_disciple = {
+	icon = ac_cultivator.dds
+	opposites = { ac_sect_master ac_sect_upper_disciple }
+	shown_in_ruler_designer = no
+}

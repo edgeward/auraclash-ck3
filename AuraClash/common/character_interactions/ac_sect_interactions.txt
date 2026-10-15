@@ -1,0 +1,114 @@
+﻿ac_sect_apply_interaction = {
+	category = interaction_category_friendly
+	icon = mentor
+	desc = ac_sect_apply_interaction_desc
+	auto_accept = yes
+	is_shown = { scope:actor = { ac_sect_candidate_trigger = yes } scope:recipient = { ac_sect_master_trigger = yes } }
+	is_valid_showing_failures_only = { scope:actor = { in_diplomatic_range = scope:recipient } }
+	on_accept = {
+		scope:actor = { ac_sect_register_interest_effect = yes set_variable = { name = ac_sect_application value = scope:recipient.var:ac_sect } custom_tooltip = ac_sect_application_tt }
+	}
+	ai_will_do = { base = 0 }
+}
+ac_sect_offer_alliance_interaction = {
+	category = interaction_category_friendly
+	icon = alliance
+	desc = ac_sect_offer_alliance_interaction_desc
+	is_shown = {
+		scope:actor = { ac_sect_master_trigger = yes }
+		scope:recipient = { ac_sect_master_trigger = yes }
+		scope:actor.var:ac_sect != scope:recipient.var:ac_sect
+	}
+	is_valid_showing_failures_only = {
+		scope:actor = { in_diplomatic_range = scope:recipient }
+		scope:actor.var:ac_sect = {
+			NOT = { has_variable = ac_opponent }
+			NOT = { is_target_in_variable_list = { name = ac_allies target = scope:recipient.var:ac_sect } }
+		}
+		scope:recipient.var:ac_sect = { NOT = { has_variable = ac_opponent } }
+	}
+	cooldown_against_recipient = { months = 12 }
+	ai_accept = { base = 50 modifier = { add = -80 scope:recipient.var:ac_sect = { is_target_in_variable_list = { name = ac_rivals target = scope:actor.var:ac_sect } } } }
+	on_accept = { ac_sect_alliance_effect = yes }
+	ai_will_do = { base = 10 }
+}
+ac_sect_end_alliance_interaction = {
+	category = interaction_category_hostile
+	icon = alliance
+	desc = ac_sect_end_alliance_interaction_desc
+	auto_accept = yes
+	is_shown = {
+		scope:actor = { ac_sect_master_trigger = yes }
+		scope:recipient = { ac_sect_master_trigger = yes }
+		scope:actor.var:ac_sect = { is_target_in_variable_list = { name = ac_allies target = scope:recipient.var:ac_sect } }
+	}
+	on_accept = { ac_sect_end_alliance_effect = yes }
+	ai_will_do = { base = 0 }
+}
+ac_sect_rivalry_interaction = {
+	category = interaction_category_hostile
+	icon = declare_war_interaction
+	desc = ac_sect_rivalry_interaction_desc
+	auto_accept = yes
+	is_shown = {
+		scope:actor = { ac_sect_master_trigger = yes }
+		scope:recipient = { ac_sect_master_trigger = yes }
+		scope:actor.var:ac_sect != scope:recipient.var:ac_sect
+	}
+	is_valid_showing_failures_only = {
+		scope:actor = { in_diplomatic_range = scope:recipient }
+		scope:actor.var:ac_sect = { NOT = { is_target_in_variable_list = { name = ac_rivals target = scope:recipient.var:ac_sect } } }
+	}
+	cooldown_against_recipient = { years = 2 }
+	on_accept = { ac_sect_rivalry_effect = yes }
+	ai_will_do = { base = 0 }
+}
+ac_sect_battle_interaction = {
+	category = interaction_category_hostile
+	icon = declare_war_interaction
+	desc = ac_sect_battle_interaction_desc
+	auto_accept = yes
+	is_shown = {
+		scope:actor = { ac_sect_master_trigger = yes }
+		scope:recipient = { ac_sect_master_trigger = yes }
+		scope:actor.var:ac_sect = { is_target_in_variable_list = { name = ac_rivals target = scope:recipient.var:ac_sect } }
+	}
+	is_valid_showing_failures_only = {
+		scope:actor = { ac_sect_available_trigger = yes in_diplomatic_range = scope:recipient }
+		scope:recipient = { ac_sect_available_trigger = yes }
+		scope:actor.var:ac_sect = { NOT = { has_variable = ac_opponent } NOT = { has_variable = ac_battle_cooldown } }
+		scope:recipient.var:ac_sect = { NOT = { has_variable = ac_opponent } NOT = { has_variable = ac_battle_cooldown } }
+	}
+	on_accept = { ac_sect_start_battle_effect = yes }
+	ai_will_do = { base = 0 }
+}
+ac_sect_handover_interaction = {
+	category = interaction_category_friendly
+	icon = mentor
+	desc = ac_sect_handover_interaction_desc
+	auto_accept = yes
+	is_shown = {
+		scope:actor = { ac_sect_master_trigger = yes }
+		scope:recipient = { has_trait = ac_sect_upper_disciple var:ac_sect = scope:actor.var:ac_sect }
+	}
+	is_valid_showing_failures_only = { scope:recipient = { ac_sect_available_trigger = yes } }
+	on_accept = {
+		scope:actor = { remove_trait = ac_sect_master add_trait = ac_sect_upper_disciple }
+		scope:recipient = { remove_trait = ac_sect_upper_disciple add_trait = ac_sect_master }
+		scope:actor.var:ac_sect = { make_story_owner = scope:recipient set_variable = { name = ac_master value = scope:recipient } ac_sect_ensure_domicile_effect = yes ac_sect_recount_effect = yes }
+		scope:recipient = { if = { limit = { is_ai = no } trigger_event = ac_sect.0020 } }
+	}
+	ai_will_do = { base = 0 }
+}
+ac_sect_expel_interaction = {
+	category = interaction_category_hostile
+	icon = icon_dismiss_temporary_regency
+	desc = ac_sect_expel_interaction_desc
+	auto_accept = yes
+	is_shown = {
+		scope:actor = { ac_sect_master_trigger = yes }
+		scope:recipient = { ac_sect_member_trigger = yes ac_sect_master_trigger = no var:ac_sect = scope:actor.var:ac_sect }
+	}
+	on_accept = { scope:recipient = { ac_sect_leave_effect = yes } }
+	ai_will_do = { base = 0 }
+}

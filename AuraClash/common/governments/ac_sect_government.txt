@@ -1,0 +1,17 @@
+﻿
+# Only the landless sect office uses this government. Landed Masters retain
+# their existing government; the title is created on a landless steward.
+ac_sect_government = {
+	government_rules = {
+		landless_playable = yes
+		inherit_from_dynastic_government = no
+		rulers_should_have_dynasty = no
+		create_cadet_branches = no
+	}
+	domicile_type = ac_sect_estate
+	primary_holding = castle_holding
+	mechanic_type = feudal
+	can_get_government = { has_trait = ac_sect_master is_landed = no }
+	color = { 60 110 85 }
+	flags = { government_is_settled government_uses_domicile_but_not_adventurer }
+}

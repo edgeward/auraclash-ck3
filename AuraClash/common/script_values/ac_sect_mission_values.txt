@@ -1,0 +1,10 @@
+﻿ac_sect_final_mission_chance = { value = ac_sect_mission_chance add = var:ac_sect_mission_bonus subtract = ac_sect_contract_difficulty min = 10 max = 95 }
+ac_sect_final_mission_failure = { value = 100 subtract = ac_sect_final_mission_chance }
+
+ac_sect_offer_tier = {
+ value = 1
+ if = { limit = { has_trait = ac_sect_upper_disciple } add = 1 }
+ if = { limit = { ac_sect_master_trigger = yes } add = 2 }
+}
+
+ac_sect_contract_difficulty = { value = var:ac_sect_mission.task_contract_tier subtract = 1 multiply = 10 }

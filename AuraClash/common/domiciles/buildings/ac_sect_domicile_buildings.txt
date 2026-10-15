@@ -1,0 +1,1134 @@
+﻿ac_sect_cultivation_hall_01 = {
+	slot_type = main
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_cultivation_hall_01_funds_tt var:ac_sect.var:ac_treasury >= 100 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 100 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 100 }
+				set_variable = { name = ac_building value = flag:cultivation_hall }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_cultivation_hall value = 1 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_manor_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_manor_chinese_mask.png"
+	}
+}
+ac_sect_cultivation_hall_02 = {
+	slot_type = main
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_cultivation_hall_01
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_cultivation_hall_02_funds_tt var:ac_sect.var:ac_treasury >= 200 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 200 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 200 }
+				set_variable = { name = ac_building value = flag:cultivation_hall }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_cultivation_hall value = 2 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_estate_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_estate_chinese_mask.png"
+	}
+}
+ac_sect_cultivation_hall_03 = {
+	slot_type = main
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_cultivation_hall_02
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_cultivation_hall_03_funds_tt var:ac_sect.var:ac_treasury >= 300 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 300 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 300 }
+				set_variable = { name = ac_building value = flag:cultivation_hall }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_cultivation_hall value = 3 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_grand_estate_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_grand_estate_chinese_mask.png"
+	}
+}
+ac_sect_alchemy_pavilion_01 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_alchemy_pavilion_01_funds_tt var:ac_sect.var:ac_treasury >= 100 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 100 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 100 }
+				set_variable = { name = ac_building value = flag:alchemy_pavilion }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_alchemy_pavilion value = 1 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_herb_hall_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_herb_hall_chinese_mask.png"
+	}
+}
+ac_sect_alchemy_pavilion_02 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_alchemy_pavilion_01
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_alchemy_pavilion_02_funds_tt var:ac_sect.var:ac_treasury >= 200 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 200 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 200 }
+				set_variable = { name = ac_building value = flag:alchemy_pavilion }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_alchemy_pavilion value = 2 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_herb_hall_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_herb_hall_chinese_mask.png"
+	}
+}
+ac_sect_alchemy_pavilion_03 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_alchemy_pavilion_02
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_alchemy_pavilion_03_funds_tt var:ac_sect.var:ac_treasury >= 300 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 300 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 300 }
+				set_variable = { name = ac_building value = flag:alchemy_pavilion }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_alchemy_pavilion value = 3 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_herb_hall_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_herb_hall_chinese_mask.png"
+	}
+}
+ac_sect_training_ground_01 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_training_ground_01_funds_tt var:ac_sect.var:ac_treasury >= 100 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 100 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 100 }
+				set_variable = { name = ac_building value = flag:training_ground }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_training_ground value = 1 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_barracks_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_barracks_chinese_mask.png"
+	}
+}
+ac_sect_training_ground_02 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_training_ground_01
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_training_ground_02_funds_tt var:ac_sect.var:ac_treasury >= 200 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 200 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 200 }
+				set_variable = { name = ac_building value = flag:training_ground }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_training_ground value = 2 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_barracks_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_barracks_chinese_mask.png"
+	}
+}
+ac_sect_training_ground_03 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_training_ground_02
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_training_ground_03_funds_tt var:ac_sect.var:ac_treasury >= 300 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 300 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 300 }
+				set_variable = { name = ac_building value = flag:training_ground }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_training_ground value = 3 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_barracks_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_barracks_chinese_mask.png"
+	}
+}
+ac_sect_scripture_library_01 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_scripture_library_01_funds_tt var:ac_sect.var:ac_treasury >= 100 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 100 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 100 }
+				set_variable = { name = ac_building value = flag:scripture_library }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_scripture_library value = 1 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_mansion_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_mansion_chinese_mask.png"
+	}
+}
+ac_sect_scripture_library_02 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_scripture_library_01
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_scripture_library_02_funds_tt var:ac_sect.var:ac_treasury >= 200 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 200 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 200 }
+				set_variable = { name = ac_building value = flag:scripture_library }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_scripture_library value = 2 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_mansion_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_mansion_chinese_mask.png"
+	}
+}
+ac_sect_scripture_library_03 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_scripture_library_02
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_scripture_library_03_funds_tt var:ac_sect.var:ac_treasury >= 300 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 300 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 300 }
+				set_variable = { name = ac_building value = flag:scripture_library }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_scripture_library value = 3 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_mansion_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_mansion_chinese_mask.png"
+	}
+}
+ac_sect_spirit_garden_01 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_spirit_garden_01_funds_tt var:ac_sect.var:ac_treasury >= 100 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 100 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 100 }
+				set_variable = { name = ac_building value = flag:spirit_garden }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_spirit_garden value = 1 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_garden_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_garden_chinese_mask.png"
+	}
+}
+ac_sect_spirit_garden_02 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_spirit_garden_01
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_spirit_garden_02_funds_tt var:ac_sect.var:ac_treasury >= 200 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 200 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 200 }
+				set_variable = { name = ac_building value = flag:spirit_garden }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_spirit_garden value = 2 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_garden_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_garden_chinese_mask.png"
+	}
+}
+ac_sect_spirit_garden_03 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_spirit_garden_02
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_spirit_garden_03_funds_tt var:ac_sect.var:ac_treasury >= 300 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 300 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 300 }
+				set_variable = { name = ac_building value = flag:spirit_garden }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_spirit_garden value = 3 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_garden_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_garden_chinese_mask.png"
+	}
+}
+ac_sect_formation_hall_01 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_formation_hall_01_funds_tt var:ac_sect.var:ac_treasury >= 100 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 100 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 100 }
+				set_variable = { name = ac_building value = flag:formation_hall }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_formation_hall value = 1 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_ancestral_shrine_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_ancestral_shrine_chinese_mask.png"
+	}
+}
+ac_sect_formation_hall_02 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_formation_hall_01
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_formation_hall_02_funds_tt var:ac_sect.var:ac_treasury >= 200 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 200 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 200 }
+				set_variable = { name = ac_building value = flag:formation_hall }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_formation_hall value = 2 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_ancestral_shrine_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_ancestral_shrine_chinese_mask.png"
+	}
+}
+ac_sect_formation_hall_03 = {
+	slot_type = external
+	allowed_domicile_types = { ac_sect_estate }
+	construction_time = 180
+	previous_building = ac_sect_formation_hall_02
+	can_construct_potential = { OR = { ac_sect_master_trigger = yes has_variable = ac_native_migration } }
+	can_construct = {
+		OR = {
+			has_variable = ac_native_migration
+			AND = {
+				custom_tooltip = { text = ac_sect_native_master_required_tt ac_sect_master_trigger = yes var:ac_sect.var:ac_estate_title.holder = this }
+				custom_tooltip = { text = ac_sect_formation_hall_03_funds_tt var:ac_sect.var:ac_treasury >= 300 }
+				custom_tooltip = { text = ac_sect_native_no_legacy_queue_tt var:ac_sect = { NOT = { has_variable = ac_building } } }
+			}
+		}
+	}
+	# Native costs charge the character's wallet. Sect funds are
+	# charged once in on_start instead, including scripted AI builds.
+	cost = { gold = 0 }
+	refund = { gold = 0 }
+	on_start = {
+		if = { limit = { scope:owner = { NOT = { has_variable = ac_native_migration } } }
+			set_variable = { name = ac_native_build_cost value = 300 }
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury subtract = 300 }
+				set_variable = { name = ac_building value = flag:formation_hall }
+				set_variable = { name = ac_building_timer value = 1 days = 180 }
+				set_variable = { name = ac_native_construction value = 1 }
+			}
+		}
+	}
+	on_cancelled = {
+		if = {
+			limit = { has_variable = ac_native_build_cost }
+			save_scope_as = ac_cancelled_domicile
+			var:ac_domicile_sect = {
+				change_variable = { name = ac_treasury add = scope:ac_cancelled_domicile.var:ac_native_build_cost }
+				remove_variable = ac_building
+				remove_variable = ac_building_timer
+				remove_variable = ac_native_construction
+			}
+			remove_variable = ac_native_build_cost
+		}
+	}
+	on_complete = {
+		if = { limit = { has_variable = ac_domicile_sect } var:ac_domicile_sect = {
+				set_variable = { name = ac_formation_hall value = 3 }
+				if = {
+					limit = { has_variable = ac_native_construction }
+					remove_variable = ac_building
+					remove_variable = ac_building_timer
+					remove_variable = ac_native_construction
+				}
+			} }
+		remove_variable = ac_native_build_cost
+	}
+	ai_value = { value = 0 }
+	asset = {
+		icon = "gfx/interface/icons/flat_icons/domicile_japan.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_ancestral_shrine_chinese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_ancestral_shrine_chinese_mask.png"
+	}
+}

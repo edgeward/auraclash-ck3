@@ -1,0 +1,42 @@
+﻿window = {
+ name = "ac_sect_contract_board"
+ layer = windows_layer
+ parentanchor = center
+ size = { 820 650 }
+ using = Window_Movable
+ using = Window_Background
+ using = Window_Decoration
+ datacontext = "[GetPlayer]"
+ visible = "[GetScriptedGui('ac_sect_contract_board').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ vbox = {
+  size = { 100% 100% }
+  using = Window_Margins
+  spacing = 12
+  header_pattern = {
+   layoutpolicy_horizontal = expanding
+   blockoverride "header_text" { text = "ac_sect_mission.0001.t" }
+   blockoverride "button_close" { onclick = "[GetScriptedGui('ac_sect_contract_board').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+  }
+  text_multi = { size = { 720 95 } text = "ac_sect_contract_board_help" }
+  text_single = { text = "ac_sect_contract_cooldown" visible = "[GetPlayer.MakeScope.HasFlag('ac_sect_mission_cooldown')]" }
+  scrollbox = {
+   size = { 720 440 }
+   blockoverride "scrollbox_content" {
+    vbox = {
+     spacing = 10
+     datamodel = "[GetPlayer.MakeScope.GetList('ac_sect_offers')]"
+     item = {
+      button_standard = {
+       datacontext = "[Scope.TaskContract]"
+       size = { 700 62 }
+       text = "ac_sect_contract_card"
+       tooltip = "[TaskContract.GetTaskContractRequest]"
+       onclick = "[GetScriptedGui('ac_sect_contract_board').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+       onclick = "[OpenGameViewData('task_contract', TaskContract.Self)]"
+      }
+     }
+    }
+   }
+  }
+ }
+}

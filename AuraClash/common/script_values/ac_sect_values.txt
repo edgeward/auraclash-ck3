@@ -1,0 +1,44 @@
+﻿# Balance and map policy are deliberately separate from the sect's persistent data.
+ac_sect_upper_capacity = 10
+ac_sect_lower_capacity = 20
+ac_sect_initial_upper = 8
+ac_sect_initial_lower = 16
+ac_sect_promotion_cost = 150
+ac_sect_mission_reward = 50
+ac_sect_joint_host_gold = { value = 75 if = { limit = { is_ai = yes } multiply = 0 } }
+ac_sect_successor_score = {
+	value = var:ac_sect_merit
+	add = prowess
+	add = learning
+}
+ac_sect_trial_score = {
+	value = learning
+	add = prowess
+	if = { limit = { has_trait = diligent } add = 8 }
+	if = { limit = { has_trait = patient } add = 5 }
+	if = { limit = { has_trait = ac_cultivator } add = 10 }
+	if = { limit = { has_trait = incapable } subtract = 100 }
+}
+ac_sect_mission_chance = {
+ value = 45
+ if = { limit = { var:ac_sect_mission_kind ?= flag:patrol } add = prowess }
+ else_if = { limit = { var:ac_sect_mission_kind ?= flag:herbs } add = learning }
+ else_if = { limit = { var:ac_sect_mission_kind ?= flag:manual } add = intrigue }
+ else_if = { limit = { var:ac_sect_mission_kind ?= flag:mediation } add = diplomacy }
+ else_if = { limit = { var:ac_sect_mission_kind ?= flag:relief } add = stewardship }
+ else_if = { limit = { var:ac_sect_mission_kind ?= flag:escort } add = martial }
+ if = { limit = { has_trait = ac_sect_upper_disciple } add = 10 }
+ min = 15
+ max = 90
+}
+ac_sect_battle_strength = {
+	value = 10
+	add = var:ac_upper_count
+	add = var:ac_upper_count
+	add = var:ac_lower_count
+	add = var:ac_training_ground
+	add = var:ac_formation_hall
+	add = story_owner.prowess
+	add = story_owner.martial
+	if = { limit = { has_variable = ac_joint_drill } add = 15 }
+}

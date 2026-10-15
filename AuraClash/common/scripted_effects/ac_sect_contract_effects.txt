@@ -1,0 +1,274 @@
+﻿ac_sect_offer_patrol_effect = {
+	if = {
+		limit = { NOT = { has_variable = ac_sect_offer_patrol } }
+		var:ac_sect.var:ac_headquarters = { save_scope_as = ac_job_location }
+		var:ac_sect.var:ac_kingdom = {
+			random_de_jure_county = {
+				limit = { exists = title_province exists = holder }
+				title_province = { save_scope_as = ac_job_location }
+			}
+		}
+		create_task_contract = {
+			task_contract_type = ac_sect_patrol
+			task_contract_tier = ac_sect_offer_tier
+			task_contract_employer = var:ac_sect.story_owner
+			location = scope:ac_job_location
+			save_scope_as = ac_created_contract
+		}
+		set_variable = { name = ac_sect_offer_patrol value = scope:ac_created_contract }
+		add_to_variable_list = { name = ac_sect_offers target = scope:ac_created_contract }
+	}
+}
+ac_sect_start_patrol_effect = {
+	if = {
+		limit = { ac_sect_mission_ready_trigger = yes }
+		ac_sect_offer_patrol_effect = yes
+		accept_task_contract = var:ac_sect_offer_patrol
+	}
+}
+ac_sect_offer_herbs_effect = {
+	if = {
+		limit = { NOT = { has_variable = ac_sect_offer_herbs } }
+		var:ac_sect.var:ac_headquarters = { save_scope_as = ac_job_location }
+		var:ac_sect.var:ac_kingdom = {
+			random_de_jure_county = {
+				limit = { exists = title_province exists = holder }
+				title_province = { save_scope_as = ac_job_location }
+			}
+		}
+		create_task_contract = {
+			task_contract_type = ac_sect_herbs
+			task_contract_tier = ac_sect_offer_tier
+			task_contract_employer = var:ac_sect.story_owner
+			location = scope:ac_job_location
+			save_scope_as = ac_created_contract
+		}
+		set_variable = { name = ac_sect_offer_herbs value = scope:ac_created_contract }
+		add_to_variable_list = { name = ac_sect_offers target = scope:ac_created_contract }
+	}
+}
+ac_sect_start_herbs_effect = {
+	if = {
+		limit = { ac_sect_mission_ready_trigger = yes }
+		ac_sect_offer_herbs_effect = yes
+		accept_task_contract = var:ac_sect_offer_herbs
+	}
+}
+ac_sect_offer_manual_effect = {
+	if = {
+		limit = { NOT = { has_variable = ac_sect_offer_manual } }
+		var:ac_sect.var:ac_headquarters = { save_scope_as = ac_job_location }
+		var:ac_sect.var:ac_kingdom = {
+			random_de_jure_county = {
+				limit = { exists = title_province exists = holder }
+				title_province = { save_scope_as = ac_job_location }
+			}
+		}
+		create_task_contract = {
+			task_contract_type = ac_sect_manual
+			task_contract_tier = ac_sect_offer_tier
+			task_contract_employer = var:ac_sect.story_owner
+			location = scope:ac_job_location
+			save_scope_as = ac_created_contract
+		}
+		set_variable = { name = ac_sect_offer_manual value = scope:ac_created_contract }
+		add_to_variable_list = { name = ac_sect_offers target = scope:ac_created_contract }
+	}
+}
+ac_sect_start_manual_effect = {
+	if = {
+		limit = { ac_sect_mission_ready_trigger = yes }
+		ac_sect_offer_manual_effect = yes
+		accept_task_contract = var:ac_sect_offer_manual
+	}
+}
+ac_sect_offer_mediation_effect = {
+	if = {
+		limit = { NOT = { has_variable = ac_sect_offer_mediation } }
+		var:ac_sect.var:ac_headquarters = { save_scope_as = ac_job_location }
+		var:ac_sect.var:ac_kingdom = {
+			random_de_jure_county = {
+				limit = { exists = title_province exists = holder }
+				title_province = { save_scope_as = ac_job_location }
+			}
+		}
+		create_task_contract = {
+			task_contract_type = ac_sect_mediation
+			task_contract_tier = ac_sect_offer_tier
+			task_contract_employer = var:ac_sect.story_owner
+			location = scope:ac_job_location
+			save_scope_as = ac_created_contract
+		}
+		set_variable = { name = ac_sect_offer_mediation value = scope:ac_created_contract }
+		add_to_variable_list = { name = ac_sect_offers target = scope:ac_created_contract }
+	}
+}
+ac_sect_start_mediation_effect = {
+	if = {
+		limit = { ac_sect_mission_ready_trigger = yes }
+		ac_sect_offer_mediation_effect = yes
+		accept_task_contract = var:ac_sect_offer_mediation
+	}
+}
+ac_sect_offer_relief_effect = {
+	if = {
+		limit = { NOT = { has_variable = ac_sect_offer_relief } }
+		var:ac_sect.var:ac_headquarters = { save_scope_as = ac_job_location }
+		var:ac_sect.var:ac_kingdom = {
+			random_de_jure_county = {
+				limit = { exists = title_province exists = holder }
+				title_province = { save_scope_as = ac_job_location }
+			}
+		}
+		create_task_contract = {
+			task_contract_type = ac_sect_relief
+			task_contract_tier = ac_sect_offer_tier
+			task_contract_employer = var:ac_sect.story_owner
+			location = scope:ac_job_location
+			save_scope_as = ac_created_contract
+		}
+		set_variable = { name = ac_sect_offer_relief value = scope:ac_created_contract }
+		add_to_variable_list = { name = ac_sect_offers target = scope:ac_created_contract }
+	}
+}
+ac_sect_start_relief_effect = {
+	if = {
+		limit = { ac_sect_mission_ready_trigger = yes }
+		ac_sect_offer_relief_effect = yes
+		accept_task_contract = var:ac_sect_offer_relief
+	}
+}
+ac_sect_offer_escort_effect = {
+	if = {
+		limit = { NOT = { has_variable = ac_sect_offer_escort } }
+		var:ac_sect.var:ac_headquarters = { save_scope_as = ac_job_location }
+		var:ac_sect.var:ac_kingdom = {
+			random_de_jure_county = {
+				limit = { exists = title_province exists = holder }
+				title_province = { save_scope_as = ac_job_location }
+			}
+		}
+		create_task_contract = {
+			task_contract_type = ac_sect_escort
+			task_contract_tier = ac_sect_offer_tier
+			task_contract_employer = var:ac_sect.story_owner
+			location = scope:ac_job_location
+			save_scope_as = ac_created_contract
+		}
+		set_variable = { name = ac_sect_offer_escort value = scope:ac_created_contract }
+		add_to_variable_list = { name = ac_sect_offers target = scope:ac_created_contract }
+	}
+}
+ac_sect_start_escort_effect = {
+	if = {
+		limit = { ac_sect_mission_ready_trigger = yes }
+		ac_sect_offer_escort_effect = yes
+		accept_task_contract = var:ac_sect_offer_escort
+	}
+}
+ac_sect_contract_cleanup_effect = {
+	save_scope_as = ac_cleaned_contract
+	clear_saved_scope = ac_cleaned_disciple
+	if = { limit = { exists = var:ac_contract_disciple } var:ac_contract_disciple = { save_scope_as = ac_cleaned_disciple } }
+	else = { task_contract_taker ?= { save_scope_as = ac_cleaned_disciple } }
+	scope:ac_cleaned_disciple ?= {
+		remove_list_variable = { name = ac_sect_offers target = scope:ac_cleaned_contract }
+
+
+		if = { limit = { var:ac_sect_offer_patrol ?= scope:ac_cleaned_contract } remove_variable = ac_sect_offer_patrol }
+		if = { limit = { var:ac_sect_offer_herbs ?= scope:ac_cleaned_contract } remove_variable = ac_sect_offer_herbs }
+		if = { limit = { var:ac_sect_offer_manual ?= scope:ac_cleaned_contract } remove_variable = ac_sect_offer_manual }
+		if = { limit = { var:ac_sect_offer_mediation ?= scope:ac_cleaned_contract } remove_variable = ac_sect_offer_mediation }
+		if = { limit = { var:ac_sect_offer_relief ?= scope:ac_cleaned_contract } remove_variable = ac_sect_offer_relief }
+		if = { limit = { var:ac_sect_offer_escort ?= scope:ac_cleaned_contract } remove_variable = ac_sect_offer_escort }
+
+		if = {
+			limit = { var:ac_sect_mission ?= scope:ac_cleaned_contract }
+			remove_variable = ac_sect_mission
+			remove_variable = ac_sect_mission_kind
+			remove_variable = ac_sect_mission_bonus
+			remove_variable = ac_sect_mission_journey
+			add_character_flag = { flag = ac_sect_mission_cooldown days = 90 }
+		}
+	}
+}
+ac_sect_clear_offers_effect = {
+
+	var:ac_sect_offer_patrol ?= { invalidate_contract = yes }
+	remove_variable = ac_sect_offer_patrol
+	var:ac_sect_offer_herbs ?= { invalidate_contract = yes }
+	remove_variable = ac_sect_offer_herbs
+	var:ac_sect_offer_manual ?= { invalidate_contract = yes }
+	remove_variable = ac_sect_offer_manual
+	var:ac_sect_offer_mediation ?= { invalidate_contract = yes }
+	remove_variable = ac_sect_offer_mediation
+	var:ac_sect_offer_relief ?= { invalidate_contract = yes }
+	remove_variable = ac_sect_offer_relief
+	var:ac_sect_offer_escort ?= { invalidate_contract = yes }
+	remove_variable = ac_sect_offer_escort
+	clear_variable_list = ac_sect_offers
+}
+ac_sect_cancel_mission_effect = {
+	if = { limit = { var:ac_sect_mission_kind ?= flag:patrol } var:ac_sect_mission ?= { complete_task_contract = ac_sect_patrol_abandoned } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:herbs } var:ac_sect_mission ?= { complete_task_contract = ac_sect_herbs_abandoned } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:manual } var:ac_sect_mission ?= { complete_task_contract = ac_sect_manual_abandoned } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:mediation } var:ac_sect_mission ?= { complete_task_contract = ac_sect_mediation_abandoned } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:relief } var:ac_sect_mission ?= { complete_task_contract = ac_sect_relief_abandoned } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:escort } var:ac_sect_mission ?= { complete_task_contract = ac_sect_escort_abandoned } }
+}
+ac_sect_mission_success_effect = {
+	if = { limit = { var:ac_sect_mission_kind ?= flag:patrol } var:ac_sect_mission ?= { complete_task_contract = ac_sect_patrol_success } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:herbs } var:ac_sect_mission ?= { complete_task_contract = ac_sect_herbs_success } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:manual } var:ac_sect_mission ?= { complete_task_contract = ac_sect_manual_success } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:mediation } var:ac_sect_mission ?= { complete_task_contract = ac_sect_mediation_success } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:relief } var:ac_sect_mission ?= { complete_task_contract = ac_sect_relief_success } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:escort } var:ac_sect_mission ?= { complete_task_contract = ac_sect_escort_success } }
+}
+ac_sect_mission_failure_effect = {
+	if = { limit = { var:ac_sect_mission_kind ?= flag:patrol } var:ac_sect_mission ?= { complete_task_contract = ac_sect_patrol_failure } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:herbs } var:ac_sect_mission ?= { complete_task_contract = ac_sect_herbs_failure } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:manual } var:ac_sect_mission ?= { complete_task_contract = ac_sect_manual_failure } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:mediation } var:ac_sect_mission ?= { complete_task_contract = ac_sect_mediation_failure } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:relief } var:ac_sect_mission ?= { complete_task_contract = ac_sect_relief_failure } }
+	else_if = { limit = { var:ac_sect_mission_kind ?= flag:escort } var:ac_sect_mission ?= { complete_task_contract = ac_sect_escort_failure } }
+}
+ac_sect_open_contract_board_effect = {
+	if = {
+		limit = { ac_sect_member_trigger = yes }
+		remove_variable = ac_sect_window_open
+		remove_variable = ac_sect_estate_open
+		# Old timer-based commissions cannot silently resolve under the new rules.
+		if = {
+			limit = { var:ac_sect_mission ?= { NOT = { has_variable = ac_contract_version } } }
+			ac_sect_cancel_mission_effect = yes
+			remove_character_flag = ac_sect_mission_cooldown
+		}
+
+		ac_sect_offer_patrol_effect = yes
+		ac_sect_offer_herbs_effect = yes
+		ac_sect_offer_manual_effect = yes
+		ac_sect_offer_mediation_effect = yes
+		ac_sect_offer_relief_effect = yes
+		ac_sect_offer_escort_effect = yes
+		set_variable = { name = ac_sect_contract_board_open value = 1 }
+	}
+}
+
+# Match the native transport-contract pattern: reserve the contract first,
+# then travel. This avoids the government-specific travel-to-accept handoff.
+ac_sect_depart_for_contract_effect = {
+	if = {
+		limit = { location = var:ac_sect_mission.task_contract_location }
+		trigger_event = ac_sect_mission.0003
+	}
+	else = {
+		start_travel_plan = {
+			destination = var:ac_sect_mission.task_contract_location
+			players_use_planner = yes return_trip = yes travel_with_domicile = no
+			on_arrival_event = ac_sect_mission.0003
+			on_arrival_destinations = all
+			on_start_event = ac_sect_mission.0005
+			on_travel_planner_cancel_event = ac_sect_mission.0004
+		}
+	}
+}

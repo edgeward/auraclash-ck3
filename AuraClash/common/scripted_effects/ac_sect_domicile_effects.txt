@@ -1,0 +1,87 @@
+﻿# Story scope. A separate landless title owns the native domicile. Its holder
+# follows the sect office, independently of secular titles, dynasty and house.
+ac_sect_ensure_domicile_effect = {
+	save_scope_as = ac_domicile_sect
+	story_owner = { save_scope_as = ac_domicile_master }
+	if = {
+		limit = { NOT = { exists = var:ac_estate_title.title_domicile } }
+		# Create on a landless founder/steward, then transfer the office. This
+		# avoids ever switching an existing ruler out of their government and
+		# preserves their personal native estate, camp, or nomadic domicile.
+		clear_saved_scope = ac_domicile_creator
+		if = {
+			limit = { scope:ac_domicile_master = { is_ruler = no } }
+			scope:ac_domicile_master = { save_scope_as = ac_domicile_creator }
+		}
+		else = {
+			random_in_list = {
+				variable = ac_members
+				limit = { is_alive = yes is_ruler = no }
+				save_scope_as = ac_domicile_creator
+			}
+		}
+		if = {
+			limit = { NOT = { exists = scope:ac_domicile_creator } }
+			var:ac_headquarters.county.holder = {
+				create_character = {
+					gender_female_chance = 50
+					age = 30 culture = this.culture faith = this.faith
+					location = scope:ac_domicile_sect.var:ac_headquarters
+					save_scope_as = ac_domicile_creator
+				}
+			}
+		}
+		var:ac_kingdom = { save_scope_as = ac_domicile_kingdom }
+		scope:ac_domicile_creator = { set_variable = { name = ac_native_migration value = 1 } }
+		create_domicile_title = {
+			name = ac_sect_native_title_name
+			adj = ac_sect_native_title_adj
+			holder = scope:ac_domicile_creator
+			government = ac_sect_government
+			tier = county
+			save_scope_as = ac_new_domicile_title
+		}
+		set_variable = { name = ac_estate_title value = scope:ac_new_domicile_title }
+		scope:ac_new_domicile_title = {
+			set_destroy_on_succession = no
+			set_destroy_if_invalid_heir = no
+			title_domicile = {
+				set_variable = { name = ac_domicile_sect value = scope:ac_domicile_sect }
+				move_domicile = scope:ac_domicile_sect.var:ac_headquarters
+			}
+		}
+		ac_sect_migrate_building_levels_effect = yes
+	}
+	if = {
+		limit = { NOT = { var:ac_estate_title.holder ?= scope:ac_domicile_master } }
+		create_title_and_vassal_change = { type = granted save_scope_as = ac_sect_office_transfer }
+		var:ac_estate_title = { change_title_holder = { holder = scope:ac_domicile_master change = scope:ac_sect_office_transfer } }
+		resolve_title_and_vassal_change = scope:ac_sect_office_transfer
+	}
+    # The landless office government needs a valid native fallback order. Never
+    # apply a realm law to a Master who keeps another government/secular realm.
+    scope:ac_domicile_master = {
+        if = {
+            limit = { has_government = ac_sect_government NOT = { has_realm_law = ac_sect_office_succession_law } }
+            add_realm_law = ac_sect_office_succession_law
+        }
+    }
+	var:ac_estate_title.title_domicile = {
+		scope:ac_domicile_sect = { set_variable = { name = ac_estate_domicile value = prev } }
+		set_variable = { name = ac_domicile_sect value = scope:ac_domicile_sect }
+		if = {
+			limit = { domicile_location != scope:ac_domicile_sect.var:ac_headquarters }
+			move_domicile = scope:ac_domicile_sect.var:ac_headquarters
+		}
+	}
+}
+
+# Member character scope. Exact title lookup also works when the Master owns a
+# personal administrative estate, a nomadic domicile, or an adventurer camp.
+ac_sect_open_estate_effect = {
+	remove_variable = ac_sect_contract_board_open
+	var:ac_sect = { ac_sect_ensure_domicile_effect = yes }
+	remove_variable = ac_sect_window_open
+	remove_variable = ac_sect_estate_selected
+	set_variable = { name = ac_sect_estate_open value = 1 }
+}

@@ -1,0 +1,39 @@
+﻿# Activity contest techniques; no ordinary single-combat hooks.
+# The contestant can be the owner of a horse while the practitioner is its jockey.
+ac_activity_contest_technique_effect = {
+    save_scope_as = ac_activity_contestant
+    remove_character_flag = success_pivotal_flag
+    remove_character_flag = neutral_pivotal_flag
+    remove_character_flag = failure_pivotal_flag
+    $PRACTITIONER$ = {
+        duel = {
+            skill = $SKILL$
+            value = decent_skill_rating
+            70 = {
+                desc = ac_event_activity_technique_success
+                compare_modifier = { value = scope:duel_value multiplier = 2 min = -69 }
+                modifier = {
+                    add = 15
+                    has_trait_xp = { trait = ac_cultivator track = $CORE$ value >= 50 }
+                }
+                modifier = {
+                    factor = 0.75
+                    scope:versus_contestant ?= { has_trait = ac_cultivator }
+                    exists = scope:versus_contestant
+                }
+                scope:ac_activity_contestant = {
+                    activity_tournament_change_contestant_score_effect = { SCORE = increase_$GAIN$ }
+                    add_character_flag = { flag = success_pivotal_flag days = 30 }
+                }
+            }
+            30 = {
+                desc = ac_event_activity_technique_failure
+                compare_modifier = { value = scope:duel_value multiplier = -2 min = -29 }
+                scope:ac_activity_contestant = {
+                    activity_tournament_change_contestant_score_effect = { SCORE = decrease_minor }
+                    add_character_flag = { flag = failure_pivotal_flag days = 30 }
+                }
+            }
+        }
+    }
+}

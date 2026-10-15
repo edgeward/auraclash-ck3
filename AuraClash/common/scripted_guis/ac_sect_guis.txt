@@ -1,0 +1,50 @@
+﻿ac_sect_window = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes has_variable = ac_sect_window_open }
+	effect = { remove_variable = ac_sect_window_open }
+}
+ac_sect_window_ledger = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { remove_variable = ac_sect_window_open trigger_event = ac_sect.0001 }
+}
+ac_sect_window_estate = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { remove_variable = ac_sect_window_open trigger_event = ac_sect_estate.0001 }
+}
+ac_sect_window_missions = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { remove_variable = ac_sect_window_open trigger_event = ac_sect_mission.0001 }
+}
+ac_sect_window_exchange = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes }
+	effect = { remove_variable = ac_sect_window_open trigger_event = ac_sect.0010 }
+}
+ac_sect_view_foreign_gui = {
+	scope = character
+	is_shown = { ac_sect_member_trigger = yes exists = scope:ac_selected_sect }
+	effect = {
+		remove_variable = ac_sect_window_open
+		set_variable = { name = ac_viewed_sect value = scope:ac_selected_sect }
+		trigger_event = ac_sect.0003
+	}
+}
+
+ac_sect_hud_estate = {
+ scope = character
+ is_shown = { ac_sect_member_trigger = yes }
+ effect = { ac_sect_open_estate_effect = yes }
+}
+ac_sect_hud_contracts = {
+ scope = character
+ is_shown = { ac_sect_member_trigger = yes }
+ effect = { ac_sect_open_contract_board_effect = yes }
+}
+ac_sect_contract_board = {
+ scope = character
+ is_shown = { ac_sect_member_trigger = yes has_variable = ac_sect_contract_board_open }
+ effect = { remove_variable = ac_sect_contract_board_open }
+}

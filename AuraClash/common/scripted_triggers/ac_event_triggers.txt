@@ -1,0 +1,115 @@
+﻿# Cultivation event techniques. Travel helpers must actually be in the entourage.
+ac_event_practitioner_trigger = {
+	has_trait = ac_cultivator
+	age >= 16
+	is_alive = yes
+	is_imprisoned = no
+	NOT = { has_trait = incapable }
+}
+
+ac_event_available_practitioner_trigger = {
+	OR = {
+		ac_event_$ABILITY$_trigger = yes
+		AND = {
+			exists = current_travel_plan
+			current_travel_plan = {
+				any_entourage_character = { ac_event_$ABILITY$_trigger = yes }
+			}
+		}
+	}
+}
+
+ac_event_water_trigger = { ac_event_practitioner_trigger = yes has_trait = ac_element_water }
+ac_event_wind_trigger = { ac_event_practitioner_trigger = yes has_trait = ac_element_wind }
+ac_event_storm_trigger = { ac_event_practitioner_trigger = yes has_trait = ac_element_storm }
+ac_event_darkness_trigger = { ac_event_practitioner_trigger = yes has_trait = ac_element_darkness }
+ac_event_water_rescue_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_water has_perk = ac_4_element_wind_g_perk has_perk = ac_4_element_wind_h_perk }
+}
+ac_event_flood_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_water has_perk = ac_4_element_earth_g_perk }
+}
+ac_event_water_source_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_water has_perk = ac_4_element_earth_e_perk }
+}
+ac_event_fire_control_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_water has_trait = ac_element_fire }
+}
+ac_event_snow_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_fire has_perk = ac_4_element_ice_a_perk }
+}
+ac_event_avalanche_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = {
+		has_perk = ac_4_element_earth_g_perk
+		has_perk = ac_4_element_ice_f_perk
+		has_trait_xp = { trait = ac_cultivator track = ac_core_power value >= 75 }
+	}
+}
+ac_event_scouting_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_wind_c_perk has_perk = ac_4_element_wind_g_perk has_perk = ac_3_style_kiihakai_d_perk }
+}
+ac_event_fall_rescue_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_wind_g_perk has_perk = ac_4_element_wind_h_perk }
+}
+ac_event_bridge_mido_trigger = { ac_event_practitioner_trigger = yes has_trait = ac_style_midorikatai }
+ac_event_bridge_akakiru_trigger = { ac_event_practitioner_trigger = yes has_trait = ac_style_akakiru }
+ac_event_foraging_trigger = { ac_event_practitioner_trigger = yes has_perk = ac_1_alchemy_a_perk }
+ac_event_preservation_trigger = { ac_event_practitioner_trigger = yes has_perk = ac_4_element_ice_b_perk }
+ac_event_rain_search_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { ac_event_scouting_trigger = yes has_trait = ac_element_storm }
+}
+ac_event_healer_trigger = {
+	ac_event_practitioner_trigger = yes
+	ac_can_chi_heal_trigger = yes
+	NOT = { has_character_flag = ac_chi_healing_cooldown }
+}
+ac_event_hunt_control_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_style_midorikatai has_trait = ac_style_akakiru }
+	OR = { prowess >= 20 has_perk = ac_3_style_midorikatai_e_perk has_perk = ac_3_style_akakiru_j_perk }
+}
+ac_event_hunt_defend_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = {
+		AND = { has_trait = ac_style_akakiru prowess >= 20 }
+		has_perk = ac_4_element_light_h_perk
+		has_perk = ac_3_style_kiihakai_b_perk
+		has_perk = ac_2_handseals_g_perk
+	}
+}
+ac_event_restore_fields_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_4_element_earth_d_perk has_perk = ac_4_element_earth_h_perk has_perk = ac_3_style_kiihakai_a_perk }
+}
+ac_event_warded_patrols_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_2_handseals_g_perk has_perk = ac_2_handseals_h_perk }
+}
+ac_event_martial_patrols_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_perk = ac_3_style_midorikatai_j_perk has_perk = ac_3_style_akakiru_j_perk }
+}
+ac_event_sea_rescue_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = { has_trait = ac_element_water has_trait = ac_element_wind has_trait = ac_element_storm }
+}
+ac_event_poison_survival_trigger = {
+	ac_event_practitioner_trigger = yes
+	OR = {
+		has_perk = ac_1_alchemy_d_perk
+		has_perk = ac_1_alchemy_j_perk
+		has_perk = ac_4_element_fire_i_perk
+		has_perk = ac_4_element_light_c_perk
+		has_trait = ac_immortal_core
+		has_trait_xp = { trait = ac_cultivator track = ac_core_fortitude value >= 50 }
+	}
+}

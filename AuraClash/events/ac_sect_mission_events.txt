@@ -1,0 +1,40 @@
+﻿namespace = ac_sect_mission
+ac_sect_mission.0002 = {
+ orphan = yes
+ type = character_event hidden = yes
+ trigger = {
+  ac_sect_member_trigger = yes
+  var:ac_sect_mission ?= scope:ac_mission_contract
+  scope:ac_mission_contract = { NOT = { has_variable = ac_contract_version } }
+ }
+ immediate = { ac_sect_cancel_mission_effect = yes remove_character_flag = ac_sect_mission_cooldown }
+}
+
+ac_sect_mission.0003 = {
+ type = character_event hidden = yes
+ trigger = {
+  ac_sect_member_trigger = yes
+  exists = var:ac_sect_mission
+  location = var:ac_sect_mission.task_contract_location
+  var:ac_sect_mission = { NOT = { has_variable = ac_encounter_started } }
+ }
+ immediate = {
+  var:ac_sect_mission = { save_scope_as = ac_mission_contract set_variable = { name = ac_encounter_started value = 1 } }
+  if = { limit = { var:ac_sect_mission_kind = flag:patrol } trigger_event = ac_sect_job.0001 }
+  else_if = { limit = { var:ac_sect_mission_kind = flag:herbs } trigger_event = ac_sect_job.0002 }
+  else_if = { limit = { var:ac_sect_mission_kind = flag:manual } trigger_event = ac_sect_job.0003 }
+  else_if = { limit = { var:ac_sect_mission_kind = flag:mediation } trigger_event = ac_sect_job.0004 }
+  else_if = { limit = { var:ac_sect_mission_kind = flag:relief } trigger_event = ac_sect_job.0005 }
+  else_if = { limit = { var:ac_sect_mission_kind = flag:escort } trigger_event = ac_sect_job.0006 }
+ }
+}
+ac_sect_mission.0004 = {
+ type = character_event hidden = yes
+ trigger = { ac_sect_member_trigger = yes exists = var:ac_sect_mission }
+ immediate = { ac_sect_cancel_mission_effect = yes }
+}
+ac_sect_mission.0005 = {
+ type = character_event hidden = yes
+ trigger = { ac_sect_member_trigger = yes exists = var:ac_sect_mission }
+ immediate = { set_variable = { name = ac_sect_mission_journey value = 1 } }
+}

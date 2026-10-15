@@ -1,0 +1,18 @@
+﻿AC_SectIdentity = { type = character
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:ember_peak } localization_key = ac_sect_identity_ember_peak }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:mirror_tide } localization_key = ac_sect_identity_mirror_tide }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:thunder_hoof } localization_key = ac_sect_identity_thunder_hoof }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:jade_mountain } localization_key = ac_sect_identity_jade_mountain }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:veiled_moon } localization_key = ac_sect_identity_veiled_moon }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:dawn_lotus } localization_key = ac_sect_identity_dawn_lotus }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:ashen_blade } localization_key = ac_sect_identity_ashen_blade }
+	text = { trigger = { var:ac_sect.var:ac_identity = flag:sky_palm } localization_key = ac_sect_identity_sky_palm }
+	text = { localization_key = ac_sect_identity_unknown }
+}
+
+AC_SectRank = {
+	type = character
+	text = { trigger = { has_trait = ac_sect_master } localization_key = trait_ac_sect_master }
+	text = { trigger = { has_trait = ac_sect_upper_disciple } localization_key = trait_ac_sect_upper_disciple }
+	text = { localization_key = trait_ac_sect_lower_disciple }
+}

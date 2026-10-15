@@ -1,0 +1,41 @@
+﻿# Prefer the ruler; otherwise credit and exhaust the actual travelling helper.
+ac_event_choose_practitioner_effect = {
+	if = {
+		limit = { ac_event_$ABILITY$_trigger = yes }
+		save_scope_as = ac_event_practitioner
+	}
+	else = {
+		current_travel_plan = {
+			random_entourage_character = {
+				limit = { ac_event_$ABILITY$_trigger = yes }
+				save_scope_as = ac_event_practitioner
+			}
+		}
+	}
+}
+
+ac_event_exertion_effect = {
+	add_stress = 15
+	add_character_modifier = { modifier = ac_event_chi_exertion_modifier months = 3 }
+	add_ac_cultivation_lifestyle_xp = 25
+}
+
+ac_event_great_exertion_effect = {
+	add_stress = 40
+	add_character_modifier = { modifier = ac_event_great_exertion_modifier months = 6 }
+	add_ac_cultivation_lifestyle_xp = 100
+}
+
+ac_event_saved_companion_effect = {
+	$COMPANION$ ?= {
+		if = {
+			limit = { this != scope:ac_event_practitioner }
+			add_opinion = { target = scope:ac_event_practitioner modifier = grateful_opinion opinion = 20 }
+		}
+	}
+}
+
+# Shared by event treatment and the character interaction to prevent repeated healing.
+ac_event_chi_healing_cooldown_effect = {
+	add_character_flag = { flag = ac_chi_healing_cooldown months = 6 }
+}
